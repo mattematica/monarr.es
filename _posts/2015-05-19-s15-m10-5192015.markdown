@@ -1,0 +1,86 @@
+---
+layout: post
+title: Math 10 - S15 - 5192015
+date: '2015-05-19 06:27:38'
+---
+
+Normal Distributions
+=====================
+
+
+Warm Up
+---------
+
+**example:**  According to KQED, only about 8.2 percent of Califonians age 18-24 voted in the 2014 elections. Let's answer the following questions. If I randomly select 42 18-24 year olds, what is the probability that:
+
+1) Less than 4 of those young people voted.
+2) More than 8 voted. 
+3) Exactly 3 voted. 
+
+
+**Extra Question:**  What do you think the average number of 18-24 year olds should be if you sample 42? 
+
+
+Expected Value (Average) and Standard Deviation
+----
+
+**definition:** The expected value of a random variable is the long run average value of a r.v. 
+
+* For example if you flip a coin 100 times, you's **expect** there to be 50 heads observed, or
+* if 62% percent of students hate math, you'd expect 62 out of 100 student's surveyed to hate math. 
+
+When we are considering a random variable in general:
+
+* $\mu = \sum\_{i=1}^{n} x\_i * p(x\_i)$
+* $\sigma = \sqrt{\sum\_{i=1}^{n} (x\_i - \mu)^{2} p(x\_i)}$
+
+but when your experiment is a binomial one it simplifies to become
+
+* $\mu = np$
+* $\sigma = \sqrt{npq}$
+
+
+**Example**
+A local ad-network has a *click-though* rate of 1 percent on an ad for organic hemp dog collars. Find the *expected* number of clicks that an ad will receive in 10,325 impressions. 
+
+**Example**
+According to a KQED report, 8.2 percent of Californians between the ages of 18 to 24 voted in the 2014 election. If we have a class that consists of 42 18-24 year olds. What would the average number of people who voted in this class be? Would it be *unusual* for more than 10 to have voted? 
+
+Chapter 6: Normal Distributions
+----
+
+**Topics**
+
+ * Continuous versus Discrete
+ * Probability **density** function
+ * Area is probability, percentage, proportion. 
+
+**Normal PDF**
+
+* \\( f(x) =  \frac{1}{\sigma\sqrt{2\pi}} e^{(x-\mu)^2/2\sigma^2}\\)
+* It is defined by the parameters $\mu$ and $\sigma$. 
+
+
+**example**
+The heights of men in the united states is normally distributed with an average height of 69 inches and a standard deviation of 3 inches. What percentage of the US male population has a height that is between 66 inches and 72 inches. 
+
+**example**
+The number of customers that visit a Samsung experience kiosk in best buy is normally distributed with an average of 15 customers per day and a standard deviation of 4 per day. What is the probability that more than 19 customers visit the kiosk on a randomly selected day? What about less than 3? 
+
+
+* Inverse Normal cdf. 
+
+**example**
+Suppose that you wanted to design a doorway that is tall enough so that all but the top 2 percent of men can walk under it without bending over. (Use that $\mu = 69 in$ and $\sigma = 3in$. 
+
+**example** Suppose that the scores on an exam are normally distributed with an average score of 72 points and a standard deviation of 15 points. What is the largest score that will put you into the 5th percentile? 95th percentile?
+
+
+
+The Standard Normal and the Old way of doing this
+--------
+
+**example** Suppose that the average length of a top 40 song on Spotify is 4.25 minutes with a standard deviation of .32 seconds. What percentage of top-40 songs are going to be longer than 5 minutes? 
+
+
+**example** Using the information from the prior example, find the minimum length of a song that will be in the 95th percentile of top-40 songs.  

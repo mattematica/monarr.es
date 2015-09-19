@@ -1,0 +1,22 @@
+---
+layout: post
+title: Fall 2015 - Math 200
+date: '2015-08-17 03:58:55'
+---
+
+##Description
+This course presents the basic concepts underlying statistical methods and covers descriptive statistics, probability, probability distributions, hypothesis testing, estimates and sample sizes, correlation and regression, chi-square tests, analysis of variance, and nonparametric statistics. Applications of statistics to business, life sciences and other areas are included.
+
+##Syllabus
+* [Fall 2015 Math 200](https://www.dropbox.com/s/rqmzcvuppgmqrrm/m200-f15-syllabus.pdf?dl=0)
+
+##Homework
+* [Instructions for Registration](https://www.dropbox.com/s/179kuux3t8ephkv/Student%20Registration%20Handout%20for%20monarres42255.pdf?dl=0)
+
+##Dropbox
+* [Course Dropbox](https://www.dropbox.com/sh/tfctcflgoochxcj/AAA6o2uS1CspQ1W8pVrHnqKUa?dl=0)
+
+## Learning Center Math 200 Help
+* [Math 200 Help](http://www.canadacollege.edu/learningcenter/statistics.php)
+* [Frank's Packet](http://www.canadacollege.edu/learningcenter/docs/math200_outline_2014-2015.pdf) <- seriously download and print this out
+* [Frank's Workshop Schedule](http://www.canadacollege.edu/learningcenter/docs/StatsWorkshopsPosterFall15.pdf)

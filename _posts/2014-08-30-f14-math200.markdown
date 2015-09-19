@@ -1,0 +1,54 @@
+---
+layout: post
+title: Math 200 - Elementary Prob and Stats
+date: '2014-08-30 16:55:30'
+---
+
+
+##Sylabus
+* [Fall 2014 Syllabus](https://www.dropbox.com/s/0mzkxmo9valg510/M200-F14-Syllabus.pdf?dl=0)
+##Homework
+
+* [My Math Lab](https://www.coursecompass.com/)
+* [Registration Instructions](https://www.dropbox.com/s/n5n1nelxhyqzw5f/Student%20Registration%20Handout%20for%20monarres25356.pdf)
+
+##Calendar
+<div class="responsive-iframe-container">
+<iframe src="https://www.google.com/calendar/embed?src=h3ff8dfb9qr8ev5v41scgs1l48%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+
+##Files
+* [Course Dropbox](https://www.dropbox.com/sh/iqlxvhdy2356zav/AAC8D2gKXs2PeVizF-EePYIsa)
+
+## Workshops
+
+<table>
+<tbody>
+<tr><th>Day</th><th>Time</th></tr>
+<tr>
+<td>Mondays</td>
+<td>12 p.m. – 1:30 p.m.</td>
+</tr>
+<tr>
+<td>Tuesdays</td>
+<td>4 p.m. – 5:30 p.m.</td>
+</tr>
+<tr>
+<td>Wednesdays</td>
+<td>2 p.m. – 3:30 p.m.</td>
+</tr>
+<tr>
+<td>Thursdays</td>
+<td>10:30 a.m. - 12 p.m.</td>
+</tr>
+<tr>
+<td>Fridays</td>
+<td>10:30 a.m. - 12:30 p.m.</td>
+</tr>
+</tbody>
+</table>
+
+* [Outline](http://canadacollege.edu/learningcenter/docs/math200_outline_2014-2015.pdf)
+* [Learning Center Statistics Page](http://canadacollege.edu/learningcenter/statistics.php)
+## Discussion List
+* [f14-math200 at monarr.es](mailto:f14-math200@monarr.es)

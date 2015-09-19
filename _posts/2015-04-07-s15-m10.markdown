@@ -1,0 +1,21 @@
+---
+layout: post
+title: Spring 2015 - Math 10
+date: '2015-04-07 04:39:07'
+---
+
+##Description
+An introduction to modern methods of descriptive statistics, including collection and presentation of data; measures of central tendency and dispersion; probability; sampling distributions; hypothesis testing and statistical inference; linear regression and correlation; analysis of variance; use of microcomputers for statistical calculations. Illustrations taken from the fields of business, economics, medicine, engineering, education, psychology, sociology, social sciences, life science, and health science.
+
+##Syllabus
+* [Spring 2015 Math 10](https://www.dropbox.com/s/wdqqcxmq1m4w0my/M10-S13-Syllabus.pdf?dl=0)
+
+##Homework
+* [Webassign](https://www.webassign.net)
+* **course key**: foothill 4371 3603 
+
+##Dropbox
+* [Course Dropbox](https://www.dropbox.com/sh/lbbeog2vd1uphfp/AAC9BWQmAlxCzBMVjRdJlYX-a?dl=0)
+
+## Notes
+* [May 19,2015](/s15-m10-5192015)

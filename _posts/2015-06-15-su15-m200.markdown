@@ -1,0 +1,54 @@
+---
+layout: post
+title: Summer 2015 - Math 200
+date: '2015-06-15 05:11:50'
+---
+
+
+##Description
+This course presents the basic concepts underlying statistical methods and covers descriptive statistics, probability, probability distributions, hypothesis testing, estimates and sample sizes, correlation and regression, chi-square tests, analysis of variance, and nonparametric statistics. Applications of statistics to business, life sciences and other areas are included.
+
+##Syllabus
+* [Summer 2015 Math 200](https://www.dropbox.com/s/u62zye0f8xwrabn/M200-Su13-Syllabus.pdf?dl=0)
+
+##Homework
+* [Instructions for Registration](https://www.dropbox.com/s/c2hevzaifq75emx/Student%20Registration%20Handout%20for%20monarres35641.pdf?dl=0)
+
+##Dropbox
+* [Course Dropbox](https://www.dropbox.com/sh/v2rugibp380w6l9/AACc4pSRZWtOPy5pdQBsLkIfa?dl=0)
+
+## Frank's Workshops
+* [Stats Packet!!!!](http://canadacollege.edu/learningcenter/docs/math200_outline_2014-2015.pdf)
+* [Statistics Page](http://canadacollege.edu/learningcenter/statistics.php)
+<table border="1">
+<tbody>
+<tr><th>Day</th><th>Time</th></tr>
+<tr>
+<td rowspan="3"><strong><span style="font-size: small;">Tuesdays &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>&nbsp;</strong></td>
+<td>10:45 a.m. – 12:30 p.m. for Math 200</td>
+</tr>
+<tr>
+<td>1:30 p.m.&nbsp;– 2:30 p.m. for Math 200</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td rowspan="2"><strong><span style="font-size: small;">Wednesdays</span>&nbsp;</strong></td>
+<td>1 p.m. – 2:30 p.m. for Math 200</td>
+</tr>
+<tr>
+<td>5:30 p.m.&nbsp;&nbsp;– 6:45 p.m. for Math 200</td>
+</tr>
+<tr>
+<td rowspan="3"><strong><span style="font-size: small;">Thursdays</span>&nbsp;&nbsp;</strong></td>
+<td>10:45 a.m. – 12&nbsp; p.m. for Math 200</td>
+</tr>
+<tr>
+<td>1 p.m.&nbsp;&nbsp;–&nbsp; 2:30 p.m. for Math 200</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>

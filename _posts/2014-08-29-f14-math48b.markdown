@@ -1,0 +1,25 @@
+---
+layout: post
+title: Math 48B - Precalculus II
+date: '2014-08-29 19:58:21'
+---
+
+##Description
+This course is a continuation of topics from MATH 48A. Topics will include rational, exponential and logarithmic functions, piecewise functions, combination and composition of functions and an introduction to trigonometry.
+
+##Syllabus
+
+* [Fall 2014](https://www.dropbox.com/s/r63469l0kg33w7d/m48b-f14-syllabus.pdf?dl=0)
+
+##Homework
+
+* [Webassign](http://www.webassign.net)
+* Course Key: **foothill 0244 2549**
+
+##Files
+
+* [Course Dropbox](https://www.dropbox.com/sh/v99dcqo5akg2xv5/AADiJo1q2gzXfJIJgDuJ1i4Xa?dl=0)
+
+##Calendar
+
+

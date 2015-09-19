@@ -1,0 +1,21 @@
+---
+layout: post
+title: Spring 2015 - Math 48A
+date: '2015-04-07 03:46:39'
+---
+
+##Description
+This course presents an introduction to functions and families of functions including quadratics, polynomials, power and root functions, transformations of these functions, and their use in solving applications problems.
+
+##Syllabus
+* [Spring 2015 Math 48A](https://www.dropbox.com/s/bgnrc8rlus0hyss/m48a-s14-syllabus.pdf?dl=0)
+
+##Homework
+* [Webassign](https://www.webassign.net)
+* **course key**:  foothill 3173 7695
+
+##Dropbox
+* [Course Dropbox](https://www.dropbox.com/sh/q8xt9pyzpr0pahu/AAAGKbo8KeTkL58PWcl1Dfsua?dl=0)
+
+##Notes
+* [May 19,2015](/m48a-s15-5192015)
