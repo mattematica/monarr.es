@@ -1,0 +1,1497 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Programming in Sage &mdash; SDSU Sage Tutorial v1.1</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="SDSU Sage Tutorial v1.1" href="index.html" />
+    <link rel="next" title="Mathematical Structures" href="mathstruct.html" />
+    <link rel="prev" title="Sage as a Calculator" href="sagecalc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mathstruct.html" title="Mathematical Structures"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sagecalc.html" title="Sage as a Calculator"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SDSU Sage Tutorial v1.1</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="programming-in-sage">
+<span id="index-0"></span><span id="id1"></span><h1>Programming in Sage<a class="headerlink" href="#programming-in-sage" title="Permalink to this headline">¶</a></h1>
+<p>This part of the tutorial covers the essential programming tools that you need to do more advanced mathematics.   The first chapter, on Sage objects, is essential before moving on to study mathematical structures.   The second chapter is more specifically about programming: conditionals and interative loops, creating your own commands and saving your work. It is not necessary for basic computations with mathematical structures, but becomes invaluable for doing work of any depth.    The third chapter explains how to interact with some of the principle  mathematics software packages included in Sage.  Finally there is a brief chapter on interactive use of Sage.</p>
+<div class="section" id="sage-objects">
+<span id="index-1"></span><span id="id2"></span><h2>Sage Objects<a class="headerlink" href="#sage-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="universes-and-coercion">
+<span id="index-2"></span><span id="id3"></span><h3>Universes and Coercion<a class="headerlink" href="#universes-and-coercion" title="Permalink to this headline">¶</a></h3>
+<p id="index-3">A key concept in Sage is the <em>universe</em> of an object. The most effective way to gain a familiarity with <em>universes</em> and the related concept, <em>coercion</em>, is to see a few examples. We begin with the most common universes: the integers,  and the rational, real and complex numbers.</p>
+<p id="index-4">In Sage, the integers are given the name <tt class="docutils literal"><span class="pre">ZZ</span></tt>, the rationals <tt class="docutils literal"><span class="pre">QQ</span></tt>,   the real numbers <tt class="docutils literal"><span class="pre">RR</span></tt> and the complex numbers <tt class="docutils literal"><span class="pre">CC</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: ZZ
+Integer Ring
+sage: QQ
+Rational Field
+sage: RR
+Real Field with 53 bits of precision
+sage: CC
+Complex Field with 53 bits of precision
+</pre></div>
+</div>
+<p id="index-5">We can check if certain objects <em>live</em> in a universe using the <tt class="xref py py-obj docutils literal"><span class="pre">in</span></tt> operator.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 1 in ZZ
+True
+sage: 1/2 in ZZ
+False
+sage: 1/2 in QQ
+True
+sage: sqrt(2) in QQ
+False
+sage: sqrt(2) in RR
+True
+</pre></div>
+</div>
+<p>The letter <tt class="docutils literal"><span class="pre">I</span></tt> in Sage is the square root of -1 (<cite>i</cite> also works).</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: i^2
+-1
+sage: i^3
+-I
+sage: I in RR
+False
+sage: I in CC
+True
+</pre></div>
+</div>
+<p id="index-6">To directly check which universe a number is in, we use the <tt class="xref py py-func docutils literal"><span class="pre">parent()</span></tt> function.
+Sage will choose the simplest universe for each number.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(1)
+Integer Ring
+sage: parent(1/2)
+Rational Field
+sage: parent(5.7)
+Real Field with 53 bits of precision
+sage: parent(pi.n())
+Real Field with 53 bits of precision
+</pre></div>
+</div>
+<p>Another important universe is the Symbolic Ring.  You might think that <img class="math" src="_images/math/f8117cd5193e9c43e4cac4a86cc0298690ef3f79.png" alt="\sqrt{2}"/>
+or <img class="math" src="_images/math/c1bd4cb4e3647c6b2356b7ccf2f52aeffedd1b61.png" alt="\pi"/> would have parent RR, the real numbers, while <img class="math" src="_images/math/5d9e7b2aec3287330051a115f2ea3cdc8c7a6587.png" alt="I"/> would be in  CC.
+But RR and CC have finite precision, and these numbers satisfy  formulas that make them special, for example <img class="math" src="_images/math/91969062d4d84e2ec00626d8818e249f7ce710a4.png" alt="\sqrt{2}^2=2"/> and <img class="math" src="_images/math/a95da24e04fed5ca0c615379809eef268cbc2443.png" alt="\sin(\pi)= 0"/>.  The Symbolic Ring is where Sage stores these numbers with special properties.  The Symbolic Ring also contains symbolic variables, see  &#8220;<a class="reference internal" href="#variables"><em>Variables</em></a>&#8221;.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(sqrt(2))
+Symbolic Ring
+sage: parent(I)
+Symbolic Ring
+sage: parent(pi)
+Symbolic Ring
+</pre></div>
+</div>
+<p id="index-7">We often perform operations with elements from <em>different</em> universes as long as there is some sort of natural <em>conversion</em> that can be done to both elements so that they live in the <em>same</em> universe. For example when we do the computation  <img class="math" src="_images/math/1d7fc1e40c6d140297799021e8c49ac3048088ee.png" alt="1 + 1/2 = 3/2"/> we implicitly preform a conversion of <img class="math" src="_images/math/123e375e88da91240024aaf085abee194c4a2d06.png" alt="1"/> to the universe of rational numbers before we preform the operation. This conversion is often so natural that we don&#8217;t even think of it and, luckily for you, Sage does many of these conversions without you having to think about them either.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(1 + 2)
+Integer Ring
+sage: parent(1/2 + 2)
+Rational Field
+sage: parent(1/2 + 2.0)
+Real Field with 53 bits of precision
+</pre></div>
+</div>
+<p>Sage does something interesting with symbolic constants like <tt class="docutils literal"><span class="pre">pi</span></tt>. For example, here is what happens when we mix <tt class="docutils literal"><span class="pre">pi</span></tt> with a decimal.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: exp(1.)*pi
+2.71828182845905*pi
+sage: parent(exp(1.)*pi)
+Symbolic Ring
+</pre></div>
+</div>
+<p>Sage will always choose the universe which offers the most precision.  Sage does the same for other symbolic constants like <tt class="docutils literal"><span class="pre">e</span></tt> and <tt class="docutils literal"><span class="pre">i</span></tt> and the polynomial indeterminate <tt class="docutils literal"><span class="pre">x</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(2 + i)
+Symbolic Ring
+sage: parent(2 + x)
+Symbolic Ring
+sage: parent(2 + 2.0*x)
+Symbolic Ring
+sage: parent(2*pi + 2.0*e)
+Symbolic Ring
+</pre></div>
+</div>
+<p id="index-8">We can explicitly perform conversion through a process called <em>coercion</em>. We coerce a number into another universe, if it makes sense, by <em>applying</em> the parent structure to the object like it was a function. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: QQ(.5)
+1/2
+sage: parent(QQ(.5))
+Rational Field
+sage: RR(sqrt(2))
+1.41421356237310
+sage: parent(RR(sqrt(2)))
+Real Field with 53 bits of precision
+</pre></div>
+</div>
+<p>Fortunately, Sage protects us from making <em>some</em> nonsensical conversions by raising a <tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: QQ(i)
+ERROR: An unexpected error occurred while tokenizing input
+The following traceback may be corrupted or invalid
+The error message is: (&#39;EOF in multi-line statement&#39;, (1170, 0))
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+... * a lot of noise *
+TypeError: Unable to coerce I to a rational
+</pre></div>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>What <em>universe</em> does <tt class="docutils literal"><span class="pre">x</span></tt> live in by default?  When you declare   a new variable <tt class="docutils literal"><span class="pre">y</span></tt> where does it live?</li>
+<li>Find the universe of the following expressions:<ol class="loweralpha">
+<li><tt class="docutils literal"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1/2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1/2.0</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">1/2</span> <span class="pre">+</span> <span class="pre">i</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">e</span> <span class="pre">+</span> <span class="pre">pi</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">e.n()</span> <span class="pre">+</span> <span class="pre">pi</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">e.n()</span> <span class="pre">+</span> <span class="pre">pi.()</span></tt></li>
+</ol>
+</li>
+<li>For which of the following does the <em>coercion</em> make sense?<ol class="loweralpha">
+<li><tt class="docutils literal"><span class="pre">RR(1/2)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">QQ(1)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ZZ(1/2)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SR(1/2)</span></tt> (SR is the <em>Symbolic Ring</em>)</li>
+<li><tt class="docutils literal"><span class="pre">CC(x)</span></tt></li>
+</ol>
+</li>
+<li>If I enter <tt class="docutils literal"><span class="pre">x=1/2</span></tt> into Sage, what <em>universe</em> does <tt class="docutils literal"><span class="pre">x</span></tt> live in?</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="booleans">
+<span id="index-9"></span><span id="id4"></span><h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
+<p id="index-10">Another important universe is the Booleans. The Boolean universe is just known as <cite>bool</cite> in Sage, and it contains just two elements  <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(True)
+&lt;type &#39;bool&#39;&gt;
+</pre></div>
+</div>
+<p id="index-11">There are several operations on Booleans (instead of the operations like <cite>+</cite>, <cite>*</cite> on numbers). We <em>negate</em> a Boolean by using the <tt class="xref py py-obj docutils literal"><span class="pre">not</span></tt> operator.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: not True
+False
+sage: not False
+True
+</pre></div>
+</div>
+<p id="index-12">We combine two Booleans with  <tt class="xref py py-obj docutils literal"><span class="pre">and</span></tt> and <tt class="xref py py-obj docutils literal"><span class="pre">or</span></tt>. Suppose X and Y are Booleans.</p>
+<blockquote>
+<div><ul class="simple">
+<li>(X and Y) is True if both X and Y are True.
+If at least one of them is False, then it is False.</li>
+<li>(X or Y) is True if at least one of X or Y is True.</li>
+</ul>
+</div></blockquote>
+<p>As demonstrated by the following example</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: True and False
+False
+sage: True and True
+True
+sage: True or False
+True
+sage: False or False
+False
+</pre></div>
+</div>
+<p>We may use parentheses to control the order of evaluation of these truth statements.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: (True or False) and False
+False
+sage: True or (False and False)
+True
+</pre></div>
+</div>
+<p>In the first example (True or False) is evaluated to be True first, then True and False evaluates to be False. In the second example, (False and False) evaluates to be False, but True or False is True.</p>
+<p>Another important operator on Booleans is the exclusive or operator, represented by <tt class="docutils literal"><span class="pre">^^</span></tt> in Sage. (<tt class="docutils literal"><span class="pre">X</span> <span class="pre">^^</span> <span class="pre">Y</span></tt>) is <tt class="docutils literal"><span class="pre">True</span></tt> if exactly one of X or Y is <tt class="docutils literal"><span class="pre">True</span></tt>, and the other is <tt class="docutils literal"><span class="pre">False</span></tt>; otherwise it is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: True ^^ True         # xor (exclusive or) operator
+False
+sage: True ^^ False
+True
+sage: False ^^ False
+False
+</pre></div>
+</div>
+<p id="index-13">We check whether two whether two objects are equal using the <tt class="docutils literal"><span class="pre">==</span></tt> operator.
+The result is a Boolean:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 1 == 1
+True
+sage: 1 == 0
+False
+sage: not(True or False) == True and False
+True
+</pre></div>
+</div>
+<p id="index-14">Please take note that we use two equals signs, not one! To check if two things are not equal, we have two options: The <tt class="docutils literal"><span class="pre">!=</span></tt> operator and the <tt class="docutils literal"><span class="pre">&lt;&gt;</span></tt> operator.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 1 != 1
+False
+sage: 1 != 0
+True
+sage: 1 &lt;&gt; 0
+True
+</pre></div>
+</div>
+<p id="index-15">If two objects belong to a universe that has an ordering, <tt class="docutils literal"><span class="pre">&lt;</span></tt> then we may ccomparing two elements of the universe  gives a Boolean output.
+Additionally we use <tt class="docutils literal"><span class="pre">&gt;=</span></tt> for greater-than-or-equal-to and similarly <tt class="docutils literal"><span class="pre">&lt;=</span></tt> for less-than-or-equal-to.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 1 &gt; 2
+False
+sage: 2 &gt; 1
+True
+sage: 4.1 &lt; 5.7
+True
+sage: 6 &lt; 5
+False
+sage: 1 &gt;= .99999
+True
+sage: 1 &lt;= 35
+True
+</pre></div>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Test to see if the following expressions are <tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt>, or not defined:<ol class="loweralpha">
+<li><tt class="docutils literal"><span class="pre">not</span> <span class="pre">(True</span> <span class="pre">or</span> <span class="pre">False)</span> <span class="pre">==</span> <span class="pre">(False</span> <span class="pre">and</span> <span class="pre">True)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">1</span> <span class="pre">&gt;=</span> <span class="pre">1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">i</span> <span class="pre">&gt;=</span> <span class="pre">2</span> <span class="pre">-</span> <span class="pre">i</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">((3/2)</span> <span class="pre">&gt;</span> <span class="pre">1)</span> <span class="pre">or</span> <span class="pre">(2/3</span> <span class="pre">&lt;</span> <span class="pre">1)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">((3/2)</span> <span class="pre">&gt;</span> <span class="pre">1)</span> <span class="pre">^^</span> <span class="pre">(2/3</span> <span class="pre">&lt;</span> <span class="pre">1)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">1/2</span></tt></li>
+</ol>
+</li>
+<li>What is the parent of <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">1/2</span></tt>? Why do you think that Sage treats this expression differently from the rest?</li>
+<li>Use Sage to find out if <img class="math" src="_images/math/630e3a780577ea7921e81ee2ac5237dd1802ec8d.png" alt="e"/> is greater than <img class="math" src="_images/math/c1bd4cb4e3647c6b2356b7ccf2f52aeffedd1b61.png" alt="\pi"/>? (<em>Hint: Remember that both ``e`` and ``pi`` are symbolic variables by default.</em>)</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="variables">
+<span id="index-16"></span><span id="id5"></span><h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<p>You should be familiar with &#8220;<a class="reference internal" href="sagecalc.html#declare-variables"><em>Declaring Variables</em></a>&#8220;</p>
+<p>The term &#8216;variable&#8217;,  can have several different meanings.In computer programming, a &#8216;variable&#8217; is a space in memory used to store and retrieve a certain piece of information. In mathematics, a variable such as <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> is a quantity with indeterminate value; a symbol that we can manipulate with the same rules of arithmetic that are applied to numbers.</p>
+<p>In Sage, both usages are present.  We will use the term <em>variable</em> for the computer programming variable and <em>symbolic variable</em> for the mathematical variable.</p>
+<p id="index-17">Sage initializes the Symbolic Ring to have one symbolic variable, <tt class="docutils literal"><span class="pre">x</span></tt>. It obeys  the arithmetical rules that we expect.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 3*x - x
+2*x
+sage: e*e^x
+e^(x + 1)
+</pre></div>
+</div>
+<p id="index-18">If we need another symbolic variable, we have to declare it, using the <tt class="xref py py-func docutils literal"><span class="pre">var()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: e^x*e^y
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+
+/Users/mosullivan/&lt;ipython console&gt; in &lt;module&gt;()
+
+NameError: name &#39;y&#39; is not defined
+sage: var(&quot;y&quot;)
+y
+sage: e^x*e^y
+e^(x + y)
+sage:
+</pre></div>
+</div>
+<p id="index-19">Now, let&#8217;s look at variables, which are used to store a particular number.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: m=2^19-1
+sage: m
+524287
+sage: (m+1).factor()
+2^19
+</pre></div>
+</div>
+<p>We use an <tt class="docutils literal"><span class="pre">=</span></tt> to assign the value on the right to the variable on the left. Having declared a variable, we can reference by using its name, as seen above.</p>
+<p>Sage allows us to re-assign a different value to a variable.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: s=12
+sage: s
+12
+sage: s=34
+sage: s
+34
+</pre></div>
+</div>
+<p>The order of operations in Sage allow for us to reference a variable while assigning it a new value. For example, we can <em>increment</em> the variable <tt class="docutils literal"><span class="pre">t</span></tt> by doing the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: t=7
+sage: t=t+1
+sage: t
+8
+</pre></div>
+</div>
+<p>Sage also offers us a convenient way to assign multiple variables at once.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a,b=1,2
+sage: a
+1
+sage: b
+2
+</pre></div>
+</div>
+<p>Additionally, we can display a sequence of variables using commas.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: c,d,e=2,3,5
+sage: c,d,e
+(2, 3, 5)
+</pre></div>
+</div>
+<p>If we are assigning several variables at a time, and for some reason we wish to skip a value on the right hand side, we may use an underscore on the left hand side. For example,</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a,_,c=1,2,3
+sage: a
+1
+sage: c
+3
+sage: _,r = divmod(19,5)
+sage: r
+4
+</pre></div>
+</div>
+<p>There is also a quick way to initialize two variables with the same value. We do this by just <em>chaining</em> together the assignment.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a = b = 1
+sage: a
+1
+sage: b
+1
+</pre></div>
+</div>
+<p id="index-20">When you define either a variable or a symbolic variable it stays in memory until you quit your session.  Sometimes we would like restore a variable back to it&#8217;s default value. We do this with the <tt class="xref py py-func docutils literal"><span class="pre">restore()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: x = 1
+sage: a = 2
+sage: restore(&#39;x&#39;)
+sage: restore(&#39;a&#39;)
+sage: x
+x
+sage: a
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+/home/ayeq/sage/local/lib/python2.6/site-packages/sage/all_cmdline.pyc in &lt;module&gt;()
+NameError: name &#39;a&#39; is not defined
+</pre></div>
+</div>
+<p id="index-21">You can <em>reset</em> the entire environment to it&#8217;s defaults by running the <tt class="xref py py-func docutils literal"><span class="pre">reset()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a = 1
+sage: b = 2
+sage: c = 5
+sage: x = 56
+sage: reset()
+sage: a
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+/home/ayeq/sage/local/lib/python2.6/site-packages/sage/all_cmdline.pyc in &lt;module&gt;()
+
+NameError: name &#39;a&#39; is not defined
+sage: x
+x
+</pre></div>
+</div>
+<p id="index-22">And finally if I <em>really</em> want the variable obliterated, I can use the sledgehammer of memory management, the <tt class="xref py py-func docutils literal"><span class="pre">del()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a = [2, 3,4 ,5 ]
+sage: del a
+sage: a
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+/home/ayeq/sage/local/lib/python2.6/site-packages/sage/all_cmdline.pyc in &lt;module&gt;()
+
+NameError: name &#39;a&#39; is not defined
+</pre></div>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">If you enter the following into Sage:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a = 1
+sage: b = a
+sage: b = 2
+</pre></div>
+</div>
+<p>What should we expect the value of <tt class="docutils literal"><span class="pre">a</span></tt> to be?</p>
+</li>
+<li><p class="first">If you enter the following into Sage:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: f = x^2 + x + 1
+sage: f
+x^2 + x + 1
+sage: x = 3
+</pre></div>
+</div>
+<p>What do you expect the value of <tt class="docutils literal"><span class="pre">f</span></tt> to be?</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="lists">
+<span id="id6"></span><h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
+<p id="index-23">A <em>list</em> is an ordered collection of objects. The elements of a list are indexed by the integers, starting with <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/>. Here is a quick example of how to construct a list and access it&#8217;s elements.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [6,28,496,8128]
+[6, 28, 496, 8128]
+sage: L = [2,3,5,7,11,13,17,2]
+sage: L[0]
+2
+sage: L[1]
+3
+sage: L[5]
+13
+sage: L[6]
+17
+</pre></div>
+</div>
+<p>Take careful note of how we access the elements: Though <img class="math" src="_images/math/15c663954a3e059d1f876bc8a4621de376038c96.png" alt="2"/> is the first element of the list <tt class="docutils literal"><span class="pre">L</span></tt>, it is accessed by the index <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/>.</p>
+<p id="index-24">The <a class="reference external" href="http://docs.python.org/library/functions.html#len" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">len()</span></tt></a> command returns the <em>length</em> of a list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: len(L)
+8
+sage: len([2,3,5,7,11])
+5
+</pre></div>
+</div>
+<p>Note that a list of length <img class="math" src="_images/math/516e8e69cb2e0cf19a092ecfaf763417e6f5fa3f.png" alt="5"/> is indexed from <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/> to <img class="math" src="_images/math/51a8d7e791ab9e463af82a4075edb04ef8028dcf.png" alt="4"/>.</p>
+<p>Lists can contain numbers from any universe, or even  &#8220;<a class="reference internal" href="#strings"><em>Strings</em></a>&#8221;.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [ &#39;apple&#39;, &#39;pear&#39;]
+sage: len(M)
+2
+parent(M[1])
+&lt;type &#39;str&#39;&gt;
+</pre></div>
+</div>
+<p>We can even have lists of lists!</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [[1,2],[1,3],[1,4]]
+sage: M[2]
+[1, 4]
+sage: len(M)
+3
+</pre></div>
+</div>
+<p>To access a particular element within our list of lists we chain their indices. For example, to access the <tt class="docutils literal"><span class="pre">4</span></tt> within that list we issue the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[2][1]
+4
+</pre></div>
+</div>
+<p>Where we read <tt class="docutils literal"><span class="pre">M[2][1]</span></tt> as &#8220;Access the element at index <tt class="docutils literal"><span class="pre">1</span></tt> within the list with index <tt class="docutils literal"><span class="pre">2</span></tt>&#8221; in <tt class="docutils literal"><span class="pre">M</span></tt>.
+Note that <tt class="docutils literal"><span class="pre">M[2,1]</span></tt> does not work.</p>
+<div class="section" id="slicing-and-indexing">
+<span id="index-25"></span><h4>Slicing and Indexing<a class="headerlink" href="#slicing-and-indexing" title="Permalink to this headline">¶</a></h4>
+<p>Probably the nicest feature of lists in python is the <em>slice</em> notation. Let&#8217;s suppose you have the following list:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [1, 2, 0, 3, 4, 0, 4, 5]
+sage: M
+[1, 2, 0, 3, 4, 0, 4, 5]
+</pre></div>
+</div>
+<p>and you would like to access the sub-list <tt class="docutils literal"><span class="pre">[0,3,4]</span></tt>. Using the slice notation I can do that in the following way:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[2:5]
+[0, 3, 4]
+</pre></div>
+</div>
+<p>We use <tt class="docutils literal"><span class="pre">M[2:5]</span></tt> since the sub-list that we desire begins with the element with index <img class="math" src="_images/math/15c663954a3e059d1f876bc8a4621de376038c96.png" alt="2"/> and ends <em>before</em> the element with index <img class="math" src="_images/math/516e8e69cb2e0cf19a092ecfaf763417e6f5fa3f.png" alt="5"/>.</p>
+<p>By leaving the last index blank, the slice will extend to the end of the list. Similarly, when the first index is left blank the slice will start at the beginning of the list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[2:]
+[0, 3, 4, 0, 4, 5]
+sage: M[:5]
+[1, 2, 0, 3, 4]
+</pre></div>
+</div>
+<p>By leaving both indices blank, we get a copy of the entire list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[:]
+[1, 2, 0, 3, 4, 0, 4, 5]
+</pre></div>
+</div>
+<p>Slices also can use negative indices. When a negative number is used the position is measured relative to the end (or beginning) of the list. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[:-2]
+[1, 2, 0, 3, 4, 0]
+sage: M[-2:]
+[4,5]
+</pre></div>
+</div>
+<p>The first <em>ends</em> the slice two elements before the end of the list while the second <em>begins</em> the slice at this same position. And like expected, we can use two negative indices to take slices relative to the last element of a list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M[-4:-2]
+[4, 0]
+sage: M[-2:-2]
+[]
+</pre></div>
+</div>
+<p>You should note that the last <em>slice</em> is empty since the beginning of the list is the same position as the end.</p>
+<p id="index-26">If we wish to know the index of an element, we use the <tt class="xref py py-func docutils literal"><span class="pre">index()</span></tt> function. It returns the index for the first occurrence of the value given.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [2,3,3,3,2,1,8,6,3]
+sage: M.index(2)
+0
+sage: M.index(3)
+1
+sage: M.index(14)
+...
+ValueError: list.index(x): x not in list
+</pre></div>
+</div>
+<p id="index-27">We can also count the number of times that an element occurs in a list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M.count(3)
+4
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating">
+<h4>Creating<a class="headerlink" href="#creating" title="Permalink to this headline">¶</a></h4>
+<p>Since they are used rather frequently, Sage offers a convenient way to create lists of consecutive integers.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [1..7]
+[1, 2, 3, 4, 5, 6, 7]
+sage: [4..9]
+[4, 5, 6, 7, 8, 9]
+sage: [2,4..10]
+[2, 4, 6, 8, 10]
+</pre></div>
+</div>
+<p>In the first two examples it is quite clear what is happening; In the last example above, however, it is a trickier. If we input <tt class="docutils literal"><span class="pre">[a,b..c]</span></tt> for integers a,b and c with <img class="math" src="_images/math/91d5313c299a6c2d13278099ceaa3871abc8ad43.png" alt="a &lt; b \leq c"/>, we get back the list <tt class="docutils literal"><span class="pre">[a,a+d,…,a+k*d]</span></tt> where <img class="math" src="_images/math/e19daaf101f4b6703007adb04ca340b7e8bb3011.png" alt="d=b-a"/> and <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> is the largest integer such that <img class="math" src="_images/math/cb0859971058f8a33d2767d7b11865a7098c5df9.png" alt="a+kd \leq c"/>. If this is a bit overwhelming, perhap the the following examples will clear things up.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [1,4..13]
+[1, 4, 7, 10, 13]
+sage: [1,11..31]
+[1, 11, 21, 31]
+sage: [1,11..35]
+[1, 11, 21, 31]
+</pre></div>
+</div>
+<p>Additionally, we can use this construction method with some of Sage&#8217;s symbolic constants such as <tt class="docutils literal"><span class="pre">pi</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [pi,4*pi..32]
+[pi, 4*pi, 7*pi, 10*pi]
+</pre></div>
+</div>
+</div>
+<div class="section" id="modifying-lists">
+<h4>Modifying lists<a class="headerlink" href="#modifying-lists" title="Permalink to this headline">¶</a></h4>
+<p id="index-28">Sorting the list <tt class="docutils literal"><span class="pre">M</span></tt> can be done using the <tt class="xref py py-meth docutils literal"><span class="pre">sort()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [2,3,3,3,2,1,8,6,3]
+sage: M.sort(); y
+[1, 2, 2, 3, 3, 3, 3, 6, 8]
+sage: M.index(2)
+1
+</pre></div>
+</div>
+<p>The <tt class="xref py py-meth docutils literal"><span class="pre">sort()</span></tt> method alters the list <em>in place</em>, actually changing the ordering of the elements. If we would like to keep the list the same we should sort a <em>copy</em> of the list and not the list itself.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage:  M = [2,3,3,3,2,1,8,6,3]
+sage: M
+[2, 3, 3, 3, 2, 1, 8, 6, 3]
+sage: N = M[:]
+sage: N.sort()
+sage: N
+[1, 2, 2, 3, 3, 3, 3, 6, 8]
+sage: M
+[2, 3, 3, 3, 2, 1, 8, 6, 3]
+</pre></div>
+</div>
+<p>We may alter the elements of a list as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: L = [1,2,3,4]
+sage: L[0]=-1
+sage: L
+[-1, 2, 3, 4]
+</pre></div>
+</div>
+<p>In programming speak, data-types that can be changed in place are
+called <em>mutable</em>.
+Lists are mutable, but some   data types in Sage are not.</p>
+<p id="index-29">To add an element to the end of a list, we use the <tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: L = [1,2,3]
+sage: L.append(4)
+sage: L
+[1, 2, 3, 4]
+</pre></div>
+</div>
+<p id="index-30">Similarly, we may use the <tt class="xref py py-meth docutils literal"><span class="pre">extend()</span></tt> method to concatenate lists, that is, to <em>append</em> a list to the end of another list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: L=[1,2]
+sage: L.extend([10,11,12])
+sage: L
+[1, 2, 10, 11, 12]
+</pre></div>
+</div>
+<p id="index-31">It is, perhaps, simpler to use the <tt class="docutils literal"><span class="pre">+</span></tt> operator to concatenate lists. Since the order of the list is significant, the concatenation <tt class="docutils literal"><span class="pre">L</span> <span class="pre">+</span> <span class="pre">M</span></tt> is not usually the same as <tt class="docutils literal"><span class="pre">M</span> <span class="pre">+</span> <span class="pre">L</span></tt>, though they do contain the same elements.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [1,3,5]+[2,4,6]+[100]
+[1, 3, 5, 2, 4, 6, 100]
+sage: [2,4,6]+[1,3,5]+[100]
+[2, 4, 6, 1, 3, 5, 100]
+</pre></div>
+</div>
+<p id="index-32">If we wish to remove an element from a list, we use the meth:<cite>.remove</cite> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: L = [3,5,11,13,17,19,29,31]
+sage: L.remove(11)
+sage: L
+[3, 5, 13, 17, 19, 29, 31]
+</pre></div>
+</div>
+<p>Note that a list may contain the same element more than once; <tt class="xref py py-meth docutils literal"><span class="pre">remove()</span></tt> removes only the first instance of the given element.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: M = [1,2,3,0,3,4,4,0,4,5]
+sage: M.remove(3)
+sage: M
+[1, 2, 0, 3, 4, 4, 0, 4, 5]
+sage: M.remove(4)
+sage: M
+[1, 2, 0, 3, 4, 0, 4, 5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="operations-on-a-list">
+<h3>Operations on a List<a class="headerlink" href="#operations-on-a-list" title="Permalink to this headline">¶</a></h3>
+<p id="index-33">If your lists contain elements where it makes sense, the <a class="reference external" href="http://docs.python.org/library/functions.html#sum" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sum()</span></tt></a> and <tt class="xref py py-func docutils literal"><span class="pre">prod()</span></tt> commands accept a list as argument.</p>
+<p><a class="reference external" href="http://docs.python.org/library/functions.html#sum" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sum()</span></tt></a> returns the sum of it&#8217;s argument:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: sum([1,2,3])
+6
+sage: sum([1..100])
+5050
+</pre></div>
+</div>
+<p>where <tt class="xref py py-func docutils literal"><span class="pre">prod()</span></tt> returns the product.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: prod([1..4])
+24
+</pre></div>
+</div>
+<p>The sum and product commands are defined on lists where the arithmetic make sense and will complain rather loudly when it doesn&#8217;t.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: sum( [1,2,3,&quot;cat&quot;,])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last
+... (Lengthy error message)
+TypeError: unsupported operand parent(s) for &#39;+&#39;: &#39;Integer Ring&#39; and &#39;&lt;type &#39;str&#39;&gt;&#39;
+</pre></div>
+</div>
+<p id="index-34">Concatenation isn&#8217;t the only way which we can join together the elements of two lists. One useful tool is the <a class="reference external" href="http://docs.python.org/library/functions.html#zip" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">zip()</span></tt></a> command, which joins the elements of two lists by pairing them together in order.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: zip([1,2,3,4],[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;] )
+[(1, &#39;a&#39;), (2, &#39;b&#39;), (3, &#39;c&#39;), (4, &#39;d&#39;)]
+</pre></div>
+</div>
+<p>When the lists aren&#8217;t of the same length, <a class="reference external" href="http://docs.python.org/library/functions.html#zip" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">zip()</span></tt></a> joins the elements up to the items in the shorter list and ignores the rest.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: zip([1,2,3,4],[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]   )
+[(1, &#39;a&#39;), (2, &#39;b&#39;), (3, &#39;c&#39;)]
+sage: zip([1],[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]   )
+[(1, &#39;a&#39;)]
+</pre></div>
+</div>
+<p id="index-35">Another useful command when dealing with lists is <a class="reference external" href="http://docs.python.org/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a>. This command accepts two arguments, a function f and a list <tt class="docutils literal"><span class="pre">[a0,…,an-1]</span></tt> and returns that function applied to each member of that list, <tt class="docutils literal"><span class="pre">[f(a0),…,f(an-1)]</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre>sage: map( cos, [0, pi/4, pi/2, 3*pi/4, pi] )
+[1, 1/2*sqrt(2), 0, -1/2*sqrt(2), -1]
+sage: map(factorial,[1,2,3,4,5])
+[1, 2, 6, 24, 120]
+sage: sum(map(exp,[1,2,3,4,5]))
+e + e^2 + e^3 + e^4 + e^5
+</pre></div>
+</div>
+<p><a class="reference external" href="http://docs.python.org/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> is often used in <em>functional</em> programming. For more on
+this style of programming with python see the <a class="reference external" href="http://docs.python.org/howto/functional.html">Python Documentation</a>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://docs.python.org/tutorial/introduction.html#lists">An informal introduction to Python: Lists</a></p>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Consider the lists <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">-2,</span> <span class="pre">10,</span> <span class="pre">13]</span></tt> and <tt class="docutils literal"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">[4,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">-7]</span></tt>. Append <tt class="docutils literal"><span class="pre">L</span></tt> onto the end of <tt class="docutils literal"><span class="pre">M</span></tt>. Do the same beginning with <tt class="docutils literal"><span class="pre">M</span></tt>.</li>
+<li>Consider the list <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">[1,5,6],</span> <span class="pre">8,</span> <span class="pre">-9]</span></tt>. At what <em>index</em> is the element <tt class="docutils literal"><span class="pre">[1,5,6]</span></tt>? Remove this element from <tt class="docutils literal"><span class="pre">L</span></tt>.</li>
+<li>Let <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">[3,4,18,17,2,'a']</span></tt> and <tt class="docutils literal"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">14,</span> <span class="pre">23,</span> <span class="pre">'b',</span>&nbsp;&nbsp; <span class="pre">'c']</span></tt>. With Sage, do the following:<ol class="loweralpha">
+<li>Append the elements of the list <tt class="docutils literal"><span class="pre">M</span></tt> to the end of <tt class="docutils literal"><span class="pre">L</span></tt> without changing <tt class="docutils literal"><span class="pre">L</span></tt>.</li>
+<li>Do the same but this time altering <tt class="docutils literal"><span class="pre">L</span></tt> in place.</li>
+<li>Insert <tt class="docutils literal"><span class="pre">M</span></tt> as an element at the end of <tt class="docutils literal"><span class="pre">L</span></tt>, altering <tt class="docutils literal"><span class="pre">L</span></tt> in place.</li>
+<li>Remove the <tt class="docutils literal"><span class="pre">M</span></tt> that you  just inserted.</li>
+<li>Explain the differences between the <tt class="xref py py-meth docutils literal"><span class="pre">extend()</span></tt> and the <tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt> methods.</li>
+</ol>
+</li>
+<li>Let <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">[1,2,5,</span> <span class="pre">14,</span> <span class="pre">17,</span> <span class="pre">20]</span></tt>.  What are the sub-lists are accessed using the following <em>slices</em>.<ol class="loweralpha">
+<li><tt class="docutils literal"><span class="pre">L[:-1]</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">L[-1:]</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">L[3:]</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">L[0:3]</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">L[-4:-1]</span></tt></li>
+</ol>
+</li>
+<li>Using the same <tt class="docutils literal"><span class="pre">L</span></tt> as the previous problem. Find a slice that will extract the following sub-lists from <tt class="docutils literal"><span class="pre">L</span></tt>: <em>(Do this in two different ways)</em><ol class="loweralpha">
+<li><tt class="docutils literal"><span class="pre">[5,14,17]</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">[1,2,5]</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">[1]</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">[20]</span></tt></li>
+</ol>
+</li>
+<li>Consider <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">['a',</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">17,</span> <span class="pre">'a',</span> <span class="pre">'b',</span> <span class="pre">10]</span></tt>. Remove all letters from <tt class="docutils literal"><span class="pre">L</span></tt>.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="sets">
+<span id="id7"></span><h3>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h3>
+<p id="index-36">A <em>Set</em> in Sage is a data type which behaves a lot like a mathematical set and it differs from a list in a few key ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Elements of a Set have no order. So you cannot access elements by an index.</li>
+<li>An element in a Set only appears once.</li>
+</ul>
+</div></blockquote>
+<p>To see an example of that last point, we will construct a Set by converting a list into a set.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: y = [2,3,3,3,2,1,8,6,3]
+sage: A = Set(y)
+sage: A
+{8, 1, 2, 3, 6}
+</pre></div>
+</div>
+<p id="index-37">To find the size of a Set we will use the <tt class="xref py py-meth docutils literal"><span class="pre">cardinality()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: A.cardinality()
+5
+</pre></div>
+</div>
+<p id="index-38">Testing for membership can be done easily by using the <tt class="xref py py-obj docutils literal"><span class="pre">in</span></tt> operator.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: 8 in A
+True
+sage: 10 in A
+False
+</pre></div>
+</div>
+<p id="index-39">All of the usual set operations: <tt class="xref py py-meth docutils literal"><span class="pre">union()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">intersection()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">difference()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">symmetric_difference()</span></tt> are implemented. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: B = Set([8,6,17,-4,20, -2 ])
+sage: B
+{17, 20, 6, 8, -4, -2}
+sage: A.union(B)
+{1, 2, 3, 6, 8, 17, 20, -4, -2}
+sage: A.intersection(B)
+{8, 6}
+sage: A.difference(B)
+{1, 2, 3}
+sage: B.difference(A)
+{17, 20, -4, -2}
+sage: A.symmetric_difference(B)
+{17, 2, 3, 20, 1, -4, -2}
+</pre></div>
+</div>
+<p id="index-40">Use the <tt class="xref py py-meth docutils literal"><span class="pre">subsets()</span></tt> method to construct the  subsets of a set,
+or to construct the subsets with a specified number of elements.
+Notice that the <tt class="xref py py-meth docutils literal"><span class="pre">subsets()</span></tt> method produces a <em>list</em> of subsets.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: A = Set([1,2,3]); A
+{1, 2, 3}
+sage: powA = A.subsets(); powA
+Subsets of {1, 2, 3}
+sage: pairsA = A.subsets(2); pairsA
+Subsets of {1, 2, 3} of size 2
+sage: powA.list()
+[{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}]
+sage: pairsA.list()
+[{1, 2}, {1, 3}, {2, 3}]
+</pre></div>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Consider the sets <img class="math" src="_images/math/410ba4b4006ac743b1190a581703bbbdbee22948.png" alt="A = \left\{1, -4, 2 \right\}"/> and <img class="math" src="_images/math/bce08a86c242be48c5f9f0e80f5ceaa78f08502f.png" alt="B = \left\{ 3, 2, 1 \right\}"/>. Compute the following set operations using Sage:<ol class="loweralpha">
+<li><img class="math" src="_images/math/bf9a5d9121af3ab6f049a173e609dc82cd308668.png" alt="A \cup B"/></li>
+<li><img class="math" src="_images/math/81b4d25861f24e9208104e7fce703ea71d47d95c.png" alt="A \cap B"/></li>
+<li><img class="math" src="_images/math/6b8ff8a1ff4e570b68a544e5e0701a3abe9e47a4.png" alt="A \setminus B"/></li>
+<li><img class="math" src="_images/math/c58a24a806dfa0f53ba036329b1b8d92ea8fa08b.png" alt="B \setminus A"/></li>
+<li><img class="math" src="_images/math/f7da8c75eca6016c8780cdb0be542864ead2dbda.png" alt="\left(A \setminus B \right) \cup \left(B \setminus A \right)"/></li>
+</ol>
+</li>
+</ol>
+</div></blockquote>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://www.sagemath.org/doc/tutorial/programming.html#sets">Sage Tutorial: Sets</a></p>
+</div>
+</div>
+<div class="section" id="strings">
+<span id="id8"></span><h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p id="index-41">To construct a string in Sage we may use single or double quotes.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: s=&#39;I am a string&#39;
+sage: s
+&#39;I am a string&#39;
+sage: print s
+I am a string
+</pre></div>
+</div>
+<p>Note the difference between asking for the value of <tt class="docutils literal"><span class="pre">a</span></tt> and asking Sage to <tt class="docutils literal"><span class="pre">print</span> <span class="pre">a</span></tt>. Like lists, we can access the elements of a string through their indices.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a=&#39;mathematics&#39;
+sage: a[0]
+&#39;m&#39;
+sage: a[4]
+&#39;e&#39;
+</pre></div>
+</div>
+<p id="index-42">You can find the length of a string using the <a class="reference external" href="http://docs.python.org/library/functions.html#len" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">len()</span></tt></a> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: b=&#39;Gauss&#39;
+sage: len(b)
+5
+</pre></div>
+</div>
+<p id="index-43">Just like with lists, we can <em>concatenate</em> strings just by adding them together.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: b + &quot; is &quot; + a
+&#39;Gauss is mathematics&#39;
+</pre></div>
+</div>
+<p id="index-44">and we can separate a list by using the <tt class="xref py py-meth docutils literal"><span class="pre">split()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: s.split()
+[&#39;I&#39;, &#39;am&#39;, &#39;a&#39;, &#39;string&#39;]
+</pre></div>
+</div>
+<p>Which divided the string into a list of words. We can divide a list using different characters as <em>separators</em>. For example we can get a list from the following <em>comma separated values</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: vals = &quot;18,spam,eggs,28,70,287,cats&quot;
+sage: vals.split(&#39;,&#39;)
+[&#39;18&#39;, &#39;spam&#39;, &#39;eggs&#39;, &#39;28&#39;, &#39;70&#39;, &#39;287&#39;, &#39;cats&#39;]
+</pre></div>
+</div>
+<p id="index-45">We can use the <a class="reference external" href="http://docs.python.org/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> and <tt class="xref py py-meth docutils literal"><span class="pre">split()</span></tt> commands to <em>convert</em> a string of integers into something that we can use in sage. This is particularly useful when you must read data from a file.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: map(Integer, data.split(&#39;,&#39;))
+[17, 18, 20, 19, 18, 20]
+</pre></div>
+</div>
+<p>You should note how the output above differs from what we get when we use only the <tt class="xref py py-meth docutils literal"><span class="pre">split()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: data.split(&#39;,&#39;)
+[&#39;17&#39;, &#39;18&#39;, &#39;20&#39;, &#39;19&#39;, &#39;18&#39;, &#39;20&#39;]
+</pre></div>
+</div>
+<p>The list directly above contains <em>strings</em> which represent numbers. We must convert those strings into what we need in order to actually use them.</p>
+<p id="index-46">The opposite of <em>splitting</em> up a string into a list is the <em>joining</em> of elements of a list. We do this with the <tt class="xref py py-func docutils literal"><span class="pre">join()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: L = [&#39;Learning&#39;, &#39;Sage&#39;, &#39;is&#39;, &#39;easy.&#39;]
+sage: join(L)
+&#39;Learning Sage is easy.&#39;
+</pre></div>
+</div>
+<p>Just like when I <em>split</em> a sting, I can join a list using a different separating value than just a space. I do so by supplying an optional second argument to the <tt class="xref py py-func docutils literal"><span class="pre">join()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: join(L,&#39;,&#39;)
+&#39;Learning,Sage,is,easy.&#39;
+</pre></div>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Consider the string <tt class="docutils literal"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">'This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">string!</span></tt>. What is the output of the following commands:<ol class="loweralpha">
+<li>s[:-1] + &#8216;.&#8217;</li>
+<li>s[0:7] + &#8221; not &#8221; + s[8:]</li>
+</ol>
+</li>
+<li>Consider the string <tt class="docutils literal"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">'This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">sentence.</span> <span class="pre">This</span> <span class="pre">is</span> <span class="pre">another</span> <span class="pre">sentence.'</span></tt>. Split <tt class="docutils literal"><span class="pre">s</span></tt> into a list of two sentences.</li>
+<li>Consider the list of strings <tt class="docutils literal"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">['This</span> <span class="pre">is',</span> <span class="pre">'a',</span> <span class="pre">'string']</span></tt>. Join the elements of the list to form the string <tt class="docutils literal"><span class="pre">'This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">string'</span></tt>.</li>
+<li>We can use the <a class="reference external" href="http://docs.python.org/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> and <tt class="xref py py-func docutils literal"><span class="pre">Integer()</span></tt> commands to take a string of integers and convert them into <em>Sage</em> integers.</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="programming-tools">
+<span id="id9"></span><h2>Programming Tools<a class="headerlink" href="#programming-tools" title="Permalink to this headline">¶</a></h2>
+<p>Sage syntax is based on the widely used language Python, and thereby  inherits Python&#8217;s  compact and very readable  style.   In this chapter we cover the syntax for the  essentials of programming.  For more complex issues we provide  links to other resources.</p>
+<div class="section" id="conditionals">
+<span id="id10"></span><h3>Conditionals<a class="headerlink" href="#conditionals" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>You should be familiar with <a class="reference internal" href="sagecalc.html#solving-equations-inequalities"><em>Solving Equations and Inequalities</em></a>, <a class="reference internal" href="#booleans"><em>Booleans</em></a>, and <a class="reference internal" href="#variables"><em>Variables</em></a></div></blockquote>
+<p id="index-47">A <em>conditional statement</em> is what we use when we want our code to make <em>decisions</em>. For example, suppose we wanted to divide a number by 2 only <em>if</em> it is even. We can do this in Sage by using an <tt class="xref py py-obj docutils literal"><span class="pre">if</span></tt> statement.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: n=44
+sage: if n%2 == 0:
+....:     print n/2
+....:
+22
+sage: n=37
+sage: if n%2 == 0:
+....:     print n/2
+....:
+sage:
+</pre></div>
+</div>
+<p>Since <tt class="docutils literal"><span class="pre">n=44</span></tt> is even, the <em>condition</em> is met and the <a class="reference external" href="http://docs.python.org/library/functions.html#print" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a> command is executed, but when <tt class="docutils literal"><span class="pre">n=37</span></tt>, nothing will happen since the condition has not been met. Almost all programming is the skillful application of simple statements like this.</p>
+<p>Unlike some other languages, Sage is picky about indentation, a practice it inherits from Python. Instead of using some kind of punctuation to denote the beginning and ending of a <em>block</em> of code, Sage uses <em>indentation</em>.  All of the code to be run supposing a condition is met must be at the same level of indentation. This takes some getting used to, but it produces neat, organized code that is often easier to read.</p>
+<p id="index-48">At times, we may wish to check whether our expression satisfies more than one condition. To do so, use the <tt class="xref py py-obj docutils literal"><span class="pre">elif</span></tt> statement, which is short for else if.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: m=31
+sage: if m%3==0:
+....:     print m/3
+....: elif m%3==1:
+....:     print (m-1)/3
+....:
+10
+</pre></div>
+</div>
+<p>Notice that we return to the same level of indentation for <tt class="xref py py-obj docutils literal"><span class="pre">elif</span></tt> as was used for <tt class="xref py py-obj docutils literal"><span class="pre">if</span></tt>.  We may use as many elifs as we desire. The tests are evaluated in order and once the first one is met, the associated code is executed and Sage will leave the entire conditional. For a simple example, consider the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: r=55
+sage: if 11.divides(r):
+....:     print 11
+....: elif r==55:
+....:     print 55
+....:
+11
+</pre></div>
+</div>
+<p>Here both conditions are met, but only the code associated with the
+first condition is actually executed. Understanding how conditionals
+are executed is important  to controlling the flow of your program.</p>
+<p>There is also a subtle shortcut that we used in the previous example. <tt class="docutils literal"><span class="pre">11.divides(r)</span></tt> already returns either <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>, hence we did not need to use an equality here. We could have used the more verbose <tt class="docutils literal"><span class="pre">11.divides(r)==True</span></tt> but it is not necessary.</p>
+<p id="index-49">Often we wish to execute some code if none of our conditions above are met. For this we use the <tt class="xref py py-obj docutils literal"><span class="pre">else</span></tt> operator.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: n=2*3*5+1
+sage: if 2.divides(n):
+....:     print 2
+....: elif 3.divides(n):
+
+....:     print 3
+....: else:
+....:     print n
+....:
+31
+</pre></div>
+</div>
+<p>Since none of the conditions were met, our code <em>defaulted</em> to printing the number <img class="math" src="_images/math/e43d639e740f1e4b1275aaee0a93d3feeb392ae2.png" alt="31"/>.</p>
+</div>
+<div class="section" id="while-loops">
+<span id="id11"></span><h3>While loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>You should be familiar with <a class="reference internal" href="#variables"><em>Variables</em></a> and <a class="reference internal" href="#booleans"><em>Booleans</em></a></div></blockquote>
+<p id="index-50">While loops are one of the most useful techniques in programming. Essentially, a while loop runs a block of code while a condition is still satisfied. Let&#8217;s see a simple example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: i=0
+sage: while i &lt; 5:
+....:     print i^2
+....:     i=i+1
+....:
+0
+1
+4
+9
+16
+</pre></div>
+</div>
+<p>Once the condition <tt class="docutils literal"><span class="pre">i&lt;5</span></tt> is False, Sage exits the loop structure; the variable <tt class="docutils literal"><span class="pre">i</span></tt> still exists, though.</p>
+</div>
+<div class="section" id="for-loops">
+<span id="id12"></span><h3>For Loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>You should be familiar with <a class="reference internal" href="#variables"><em>Variables</em></a>, <a class="reference internal" href="#booleans"><em>Booleans</em></a>, and <a class="reference internal" href="#lists"><em>Lists</em></a></div></blockquote>
+<p id="index-51">A for loop repeatedly runs a block of code a fixed number of times. In
+Sage, for loops iterate over a fixed list.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: for i in [0..4]:
+....:     print i^2
+....:
+0
+1
+4
+9
+16
+</pre></div>
+</div>
+<p>We may iterate over any list, it need not be consecutive
+integers. Here are a few more (especially silly) examples.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: for str in [&quot;apple&quot;,&quot;banana&quot;,&quot;coconut&quot;,&quot;dates&quot;]:
+....:     print str.capitalize()
+....:
+Apple
+Banana
+Coconut
+Dates
+sage: for char in &quot;Leonhard Euler&quot;:
+....:     print char.swapcase()
+....:
+l
+E
+O
+N
+H
+A
+R
+D
+
+e
+U
+L
+E
+R
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-comprehensions-loops-in-lists">
+<span id="list-comprehensions"></span><h3>List Comprehensions (Loops in Lists)<a class="headerlink" href="#list-comprehensions-loops-in-lists" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>You should be familiar with <a class="reference internal" href="#lists"><em>Lists</em></a> and <a class="reference internal" href="#for-loops"><em>For Loops</em></a></div></blockquote>
+<p id="index-52">A particularly useful technique in python (and Sage by extension) is the
+construction of lists using <strong>list comprehensions</strong>. This feature is very similar to the <em>set builder</em> notation we often use in mathematics. For example, the set of <em>even</em> integers can be written as:</p>
+<div class="math">
+<p><img src="_images/math/aee69e18b6bd89f6b0fdcae6fb6169730509f0ac.png" alt="\left\{ 2\cdot k\ \vert\ k \in \mathbb{Z} \right\}"/></p>
+</div><p>Where we do not explicitly list the elements of the set but rather give a <em>rule</em> which can used to construct the set. We can do something very similar in python by placing a <tt class="docutils literal"><span class="pre">for</span></tt> inside of a list, like in the following example. Here is how we would construct the list of even integers from <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/> to <img class="math" src="_images/math/120b3bfdfb71bdbdeb6831dbafd4bec1d8a0cee1.png" alt="20"/>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [ 2*k for k in [0..10] ]
+[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+</pre></div>
+</div>
+<p>This concept may seem a bit intimidating at first, but it is extremely concise way to write some powerful code.</p>
+<p>We can use list comprehension to apply a function to each number of a given list, much like we did before with the <a class="reference external" href="http://docs.python.org/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [pi/4,pi/2..2*pi]
+[1/4*pi, 1/2*pi, 3/4*pi, pi, 5/4*pi, 3/2*pi, 7/4*pi, 2*pi]
+sage: [ cos(x) for x in [pi/4, pi/2..2*pi]]
+[1/2*sqrt(2), 0, -1/2*sqrt(2), -1, -1/2*sqrt(2), 0, 1/2*sqrt(2), 1]
+</pre></div>
+</div>
+<p>We can also use the list comprehension <em>filter</em> (or reduce) the results by adding a <em>conditional</em> to our list comprehension. For example, to construct the list of all natural numbers that are less than <img class="math" src="_images/math/120b3bfdfb71bdbdeb6831dbafd4bec1d8a0cee1.png" alt="20"/> which are <em>relatively prime</em> to 20 we do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [ k for k in [1..19] if gcd(k,20) == 1 ]
+[1, 3, 7, 9, 11, 13, 17, 19]
+</pre></div>
+</div>
+<p>Notice that the syntax for the construction is nearly identical to the
+mathematical way that we would write the same set of numbers:</p>
+<div class="math">
+<p><img src="_images/math/75fd3a3613bafb183aca16ea551325252734d595.png" alt="\left\{ k \in \mathbb{N}\ \vert\ k &lt; 20 \ \textrm{and}\ \gcd(k,20) = 1 \right\}"/></p>
+</div><p>In mathematics we often construct the <em>Cartesian Product</em> of two sets:</p>
+<div class="math">
+<p><img src="_images/math/4254714d7961f98362f97caf6aaf17b0a15abb78.png" alt="A \times B = \left\{ \left(a, b \right)\ | \ a \in A, b \in B \right\}"/></p>
+</div><p>We can do something similar by using multiple <em>for&#8217;s</em> in the list comprehension. For example, to construct the list of all <em>pairs</em> of elements in the list constructed earlier we do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: U =  [ k for k in [1..19] if gcd(k,20) == 1]
+sage: [ (a,b) for a in U for b in U ]
+[(1, 1), (1, 3), (1, 7), (1, 9), (1, 11), (1, 13), (1, 17), (1, 19), (3, 1), (3, 3), (3, 7), (3, 9), (3, 11), (3, 13), (3, 17), (3, 19), (7, 1), (7, 3), (7, 7), (7, 9), (7, 11), (7, 13), (7, 17), (7, 19), (9, 1), (9, 3), (9, 7), (9, 9), (9, 11), (9, 13), (9, 17), (9, 19), (11, 1), (11, 3), (11, 7), (11, 9), (11, 11), (11, 13), (11, 17), (11, 19), (13, 1), (13, 3), (13, 7), (13, 9), (13, 11), (13, 13), (13, 17), (13, 19), (17, 1), (17, 3), (17, 7), (17, 9), (17, 11), (17, 13), (17, 17), (17, 19), (19, 1), (19, 3), (19, 7), (19, 9), (19, 11), (19, 13), (19, 17), (19, 19)]
+</pre></div>
+</div>
+<p>It should be noted that I didn&#8217;t only have to form <em>tuples</em> of the pairs of elements. I can also find the product or the sum of them. Any valid expression involving <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> will be fine.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [ a*b for a in U for b in U ]
+[1, 3, 7, 9, 11, 13, 17, 19, 3, 9, 21, 27, 33, 39, 51, 57, 7, 21, 49, 63, 77, 91, 119, 133, 9, 27, 63, 81, 99, 117, 153, 171, 11, 33, 77, 99, 121, 143, 187, 209, 13, 39, 91, 117, 143, 169, 221, 247, 17, 51, 119, 153, 187, 221, 289, 323, 19, 57, 133, 171, 209, 247, 323, 361]
+sage: [ a + b for a in U for b in U ]
+[2, 4, 8, 10, 12, 14, 18, 20, 4, 6, 10, 12, 14, 16, 20, 22, 8, 10, 14, 16, 18, 20, 24, 26, 10, 12, 16, 18, 20, 22, 26, 28, 12, 14, 18, 20, 22, 24, 28, 30, 14, 16, 20, 22, 24, 26, 30, 32, 18, 20, 24, 26, 28, 30, 34, 36, 20, 22, 26, 28, 30, 32, 36, 38]
+sage: [ gcd(a,b) for a in U for b in U ]
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 3, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 3, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 13, 1, 1, 1, 1, 1, 1, 1, 1, 17, 1, 1, 1, 1, 1, 1, 1, 1, 19]
+</pre></div>
+</div>
+<p>Similar constructions work for more than 2 sets; just add more <em>for</em> statements.</p>
+<p>Since list comprehensions allow for us to put any valid expression, we can add another conditional which effects the output of our list. For example, let take the list of integers which were <em>relatively prime</em> to 20 and test if they are prime numbers or not.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: U
+[1, 3, 7, 9, 11, 13, 17, 19]
+sage: [ &#39;prime&#39; if x.is_prime() else &#39;not prime&#39; for x in U]
+[&#39;not prime&#39;, &#39;prime&#39;, &#39;prime&#39;, &#39;not prime&#39;, &#39;prime&#39;, &#39;prime&#39;, &#39;prime&#39;, &#39;prime&#39;]
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">More on list comprehensions</a></p>
+</div>
+<p><strong>Exercises:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Use a list comprehension to generate lists which have the same members as the following sets:<ol class="loweralpha">
+<li>The set of all odd integers greater than <img class="math" src="_images/math/45400b55422e2546d92f9393ecba300bb8c2285b.png" alt="-10"/> and less than <img class="math" src="_images/math/53207abcf79457df88d1a4fdae0161f672e7e56f.png" alt="30"/>.</li>
+<li>The set of all integers which are divisible by <img class="math" src="_images/math/b9b358d9bbdf54c3d9aef7554638822d996c21ea.png" alt="3"/>, less than or equal to <img class="math" src="_images/math/63e297a7a3a6ea37ad6b6bbf3f8ec35f5b1a3dba.png" alt="100"/> and greater than <img class="math" src="_images/math/f9002458fef285d47ca04408c0e941b6450bf03a.png" alt="-20"/>.</li>
+<li>The set of all <em>prime</em> numbers less than <img class="math" src="_images/math/63e297a7a3a6ea37ad6b6bbf3f8ec35f5b1a3dba.png" alt="100"/>.</li>
+</ol>
+</li>
+<li>Use a list comprehension to compute the <img class="math" src="_images/math/d51ca4693c0fb3a8aa30d9c33ac252168b8d209f.png" alt="\tan(x)"/> for all <img class="math" src="_images/math/5509bb8d7fdea318dc11f5c109b281e0604c3a1e.png" alt="x \in \left\{ 0, \pi/4, \pi/2, 3\pi/4, \pi \right\}"/></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="defining-your-own-commands">
+<span id="functions"></span><h3>Defining your own commands<a class="headerlink" href="#defining-your-own-commands" title="Permalink to this headline">¶</a></h3>
+<p id="index-53">Once your computations get complicated enough we may want to hide some of this complexity by creating your own command that can be easily re-used like Sage&#8217;s built-in commands. These user-defined commands are commonly called <em>functions</em>, though they differ from mathematical functions.</p>
+<p>For example, suppose that we wanted to compute the greatest common divisor of <img class="math" src="_images/math/560c03d15cd331635c24e8f37acae50abb0558e0.png" alt="75"/> and <img class="math" src="_images/math/dd4dd2fa4e02177de2d3b5241b1c5f90316bc4cb.png" alt="21"/>. We can use the <em>euclidean algorithm</em> and Sage to do this. Here is how that would look:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: def euclid(a,b):
+....:     r = a%b
+....:     while r != 0:
+....:         a=b; b=r
+....:         r = a%b
+....:     return b
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> are called the <em>arguments</em> of the command and the expression following the <tt class="xref py py-obj docutils literal"><span class="pre">return</span></tt> keyword is called the <em>return value</em>. The arguments are in the input of the command whereas the return value is the output.</p>
+<p>For those of you who have programmed before, you may see that there are no end or block <em>delimiters</em>, such as <strong>;</strong>, or <strong>end</strong>. Sage, like python, uses indentation to denote where a block of code begins and ends. This syntax rule forces the programmer to write more readable code, by visually separating blocks of code.</p>
+<p>Once the command <tt class="docutils literal"><span class="pre">euclid</span></tt> has been defined, the code can be easily re-used withe different arguments, just like a built-in command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: euclid(75,21)
+3
+sage: euclid(455,67)
+1
+sage: euclid(754,99)
+1
+sage: euclid(756,9)
+9
+</pre></div>
+</div>
+<p id="index-54">User defined commands may have any number of arguments, including none at all.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: def g(x,y):
+....:     return x*y
+....:
+sage: g(2,3)
+6
+sage: g(sqrt(2),sqrt(2))
+2
+sage: def h():
+....:     return 1/2
+....:
+sage: h()
+1/2
+</pre></div>
+</div>
+<p>Defining a return value is also optional, but all commands in Sage return something. If we do not specify a return value, then Sage returns the empty object <a class="reference external" href="http://docs.python.org/library/constants.html#None" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">None</span></tt></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: def lazy(x):
+....:     print x^2
+....:
+sage: lazy(sqrt(3))
+3
+sage: a =  lazy(sqrt(3))
+3
+sage: a
+None
+</pre></div>
+</div>
+<p>What the above is showing is that while the command displays the number <em>3</em>, the return value is actually <strong>None</strong>. While this is valid code, it is good practice to have your commands actually return the value that you are interested in computing.</p>
+<p>By separating the values with commas, your command can have multiple return values.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: def s(x):
+....:     return x^2,x^3
+....:
+sage: s(1)
+(1, 1)
+sage: s(2)
+(4, 8)
+sage: a,b=s(3)
+sage: a
+9
+sage: b
+27
+</pre></div>
+</div>
+<p>Defining your own commands in SAGE is easy. However, elegantly
+encapsulating your code is an art which requires a lot of practice and
+thought. For a more thorough introduction to functions (commands), the
+following  chapter on <a class="reference external" href="http://greenteapress.com/thinkpython/html/book004.html">Python functions</a> is a good place to start.</p>
+</div>
+<div class="section" id="external-files-and-sessions">
+<span id="id13"></span><h3>External Files and Sessions<a class="headerlink" href="#external-files-and-sessions" title="Permalink to this headline">¶</a></h3>
+<p id="index-55">In practice, especially when using sage for research and projects, it
+is convenient to load external files into Sage.  One such instance is
+when we have a block of code which we wish to run for several
+different cases. It would be quite tedious to retype all of the code;
+instead we read it from an external file.</p>
+<p>Suppose we have a file in the same
+directory from which we started Sage called <a class="reference download internal" href="_downloads/pythag.sage"><tt class="xref download docutils literal"><span class="pre">pythag.sage</span></tt></a> with the following content.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Begin pythag.sage</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">c</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">b</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">c</span>
+<span class="c"># End</span>
+</pre></div>
+</div>
+<p id="index-56">Note that all characters after a # of a Sage file are ignored when
+loaded. We may now load the file in Sage using the <tt class="xref py py-func docutils literal"><span class="pre">load()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: load pythag.sage
+5
+</pre></div>
+</div>
+<p>After having loaded the file, all of the variables initialized now
+exist in our Sage session.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a,b,c
+(3, 4, 5)
+</pre></div>
+</div>
+<p id="index-57">Sage allows us to save a session to pick up where we left off. That is, suppose we have done various calculations and have several variables stored. We may call the save_session function to store our session into a file in our working directly (typically sage_session.sobj). Following, we may exit Sage, power off our computer, or what have you. At any later time, we may load the file by opening Sage from the directory containing the save file and using the load_session function.</p>
+<p>Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a=101
+sage: b=103
+sage: save_session()
+sage: exit
+Exiting SAGE (CPU time 0m0.06s, Wall time 0m31.27s).
+</pre></div>
+</div>
+<p>Now start Sage from the same folder as the save file.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: load_session()
+sage: a
+101
+sage: b
+103
+</pre></div>
+</div>
+<p>We may specify the name of a save session, if we so desire.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: T=1729
+sage: save_session(&#39;ramanujan&#39;)
+sage: exit
+Exiting SAGE (CPU time 0m0.06s, Wall time 0m16.57s).
+</pre></div>
+</div>
+<p>And again we load our session <tt class="docutils literal"><span class="pre">ramanujan</span></tt> with <tt class="xref py py-func docutils literal"><span class="pre">load_session()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: load_session(&#39;ramanujan&#39;)
+sage: T
+1729
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="packages-within-sage">
+<h2>Packages within Sage<a class="headerlink" href="#packages-within-sage" title="Permalink to this headline">¶</a></h2>
+<p id="index-58">There are many open-source software packages available for doing specialized mathematics. One of the objectives of  Sage developers is to create a single clean interface from which  these packages may all be accessed.  For many computations in  advanced mathematics Sage uses the functionality in one of these packages.  A Sage use user can also explicitly call a function from one of the packages.
+This chapter briefly describes how to do so.</p>
+<div class="section" id="gap">
+<h3>GAP<a class="headerlink" href="#gap" title="Permalink to this headline">¶</a></h3>
+<p id="index-59">For this portion of the tutorial we are going to show how to use GAP from within a Sage session. The commands here follow closely with the <a class="reference external" href="http://www.gap-system.org/Manuals/doc/htm/tut/CHAP005.htm">Groups and Homomorphisms</a>  section of the GAP tutorial. A reader who is interested in learning more about the capabilities of this system shoud consult the <a class="reference external" href="http://www.gap-system.org">Gap Project&#8217;s</a> main website.</p>
+<p>You can pass a command to GAP by using <tt class="xref py py-func docutils literal"><span class="pre">gap()</span></tt> with the command as a <em>string</em>. The following example constructs the <em>symmetric group</em> on eight points using GAP.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: s8 = gap(&#39;Group( (1,2), (1,2,3,4,5,6,7,8) )&#39;)
+sage: s8
+Group( [ (1,2), (1,2,3,4,5,6,7,8) ] )
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">s8</span></tt> has <em>GAP</em> as a parent.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: parent(s8)
+Gap
+</pre></div>
+</div>
+<p>The  <em>interface</em> to the GAP system translates the commands in GAP to <em>methods</em> in Sage. For example, to compute the <em>Derived Subgroup</em> of <img class="math" src="_images/math/4455697db9949628f345512ef357ba64696edff8.png" alt="S_8"/> you use the <tt class="xref py py-meth docutils literal"><span class="pre">DerivedSubgroup()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a8 = s8.DerivedSubgroup(); a8
+Group( [ (1,2,3), (2,3,4), (2,4)(3,5), (2,6,4), (2,4)(5,7), (2,8,6,4)(3,5) ] )
+sage: a8.Size(); a8.IsAbelian(); a8.IsPerfect()
+20160
+false
+true
+</pre></div>
+</div>
+<p>The output of <cite>s8.DerivedSubgroup()</cite> is identical to the output of the GAP command <cite>DerivedSubgroup(s8)</cite> and this is the common convention when the command has one argument. When it requires two, say the group and an additional parameter, the additional parameter is given as an argument to the method. For example, the GAP command <cite>SylowSubgroup(a8,2)</cite> computes the maximal 2-subgroup of <img class="math" src="_images/math/7e3312a242b2aea77ff9ae06eb8304f4836fea22.png" alt="A_8"/>. The following Sage code does the same, then uses GAP to compute it&#8217;s size.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: sy12 = a8.SylowSubgroup(2); sy12.Size()
+64
+</pre></div>
+</div>
+<p>In the same vein, we can use GAP to compute the <em>normalizer&#8217;s</em> and <em>centralizers</em> of these groups.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: a8.Normalizer(sy12)
+Group( [ (1,6)(2,4), (1,6)(5,8), (2,4)(3,7), (2,8)(4,5), (1,7)(2,8)(3,6)(4,5),
+  (1,8)(2,7)(3,4)(5,6) ] )
+sage: a8.Normalizer(sy12) == sy12
+True
+sage: cent = a8.Centralizer(sy12.Centre());
+sage: cent
+Group( [ ( 1, 6)( 2, 4)( 3, 7)( 5, 8), (3,5)(7,8), (3,7)(5,8), (2,3)(4,7),
+  (1,2)(4,6) ] )
+sage: cent.Size()
+192
+</pre></div>
+</div>
+<p>Gap itself has commands which can maniputale lists of objects. In this example we first compute the <em>derived series</em> of <tt class="docutils literal"><span class="pre">cent</span></tt> and then compute the size of each of these subgroups using GAP&#8217;s <tt class="xref py py-func docutils literal"><span class="pre">List()</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: cent.DerivedSeries(); cent.DerivedSeries().List(&#39;Size&#39;)
+[ Group( [ ( 1, 6)( 2, 4)( 3, 7)( 5, 8), (3,5)(7,8), (3,7)(5,8), (2,3)(4,7),
+      (1,2)(4,6) ] ),
+  Group( [ (2,4)(3,7), ( 1, 3)( 2, 8)( 4, 5)( 6, 7), ( 1, 7, 4)( 2, 6, 3) ] ),
+  Group( [ ( 1, 6)( 2, 4)( 3, 7)( 5, 8), ( 1, 6)( 3, 7),
+      ( 1, 4)( 2, 6)( 3, 5)( 7, 8), ( 1, 7)( 2, 5)( 3, 6)( 4, 8),
+      ( 1, 4, 6, 2)( 3, 8, 7, 5) ] ),
+  Group( [ ( 1, 6)( 2, 4)( 3, 7)( 5, 8) ] ), Group( () ) ]
+[ 192, 96, 32, 2, 1 ]
+</pre></div>
+</div>
+<p>Since the GAP command constructs a full-fledged Sage object we can so the same in a more Sage-y manner by using a list comprehension.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: [ g.Size() for g in cent.DerivedSeries() ]
+[192, 96, 32, 2, 1]
+</pre></div>
+</div>
+<p>To convert a GAP group to a native Sage one we first extract a list of generators. Then feed that list to the usual group constructor.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: gens = s8.GeneratorsOfGroup(); gens
+[ (1,2), (1,2,3,4,5,6,7,8) ]
+sage: SG = PermutationGroup(gens); SG
+Permutation Group with generators [(1,2), (1,2,3,4,5,6,7,8)]
+sage: parent(SG)
+&lt;class &#39;sage.groups.perm_gps.permgroup.PermutationGroup_generic_with_category&#39;&gt;
+</pre></div>
+</div>
+<p>Going from a Sage group to a GAP one is even easier.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: gap(SG)
+Group( [ (1,2), (1,2,3,4,5,6,7,8) ] )
+sage: parent(gap(SG))
+Gap
+</pre></div>
+</div>
+<p>From time to time you will want to just use GAP directly without using the interface. When working from the command line, the <tt class="xref py py-func docutils literal"><span class="pre">gap_console()</span></tt> command does just this.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: gap_console()
+GAP4, Version: 4.4.12 of 17-Dec-2008, x86_64-unknown-linux-gnu-gcc
+gap&gt;
+</pre></div>
+</div>
+<p>From which we can exit by typing <tt class="docutils literal"><span class="pre">quit;</span></tt> at the gap prompt.</p>
+<div class="highlight-python"><div class="highlight"><pre>gap&gt; quit;
+sage:
+</pre></div>
+</div>
+<p>If the reader is using the notebook then using GAP directly is even easier. It is done by just selecting GAP from a drop down menu.</p>
+<a class="reference internal image-reference" href="_images/gap_example.png"><img alt="Using GAP directly from the Sage Notebook" src="_images/gap_example.png" style="width: 800px; height: 525px;" /></a>
+<p>Now the Sage notebook acts as a web interface to the GAP system.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://www.gap-system.org/Manuals/doc/htm/index.htm">http://www.gap-system.org/Manuals/doc/htm/index.htm</a></p>
+</div>
+</div>
+<div class="section" id="singular">
+<h3>Singular<a class="headerlink" href="#singular" title="Permalink to this headline">¶</a></h3>
+<p id="index-60">As with the GAP interface, the Sage interface to Singular substitutes the language commands with <em>methods</em> in Sage. For example, the following code in Singular:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; ring R = 0,(x,y,z),lp;
+&gt; R;
+//   characteristic : 0
+//   number of vars : 3
+//        block   1 : ordering lp
+//                  : names    x y z
+//        block   2 : ordering C
+</pre></div>
+</div>
+<p>Constructs a polynomial ring in three variables; x,y and z over the field of characteristic 0 using the <em>lexicographic</em> term ordering. To do the same within Sage we use the <tt class="xref py py-meth docutils literal"><span class="pre">ring()</span></tt> method of the <tt class="xref py py-obj docutils literal"><span class="pre">singular</span></tt> object.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: R = singular.ring(&#39;0&#39;,&#39;(x,y,z)&#39;,&#39;lp&#39;)
+sage: R
+//   characteristic : 0
+//   number of vars : 3
+//        block   1 : ordering lp
+//                  : names    x y z
+//        block   2 : ordering C
+</pre></div>
+</div>
+<p>Since much of the language that Singular uses is not valid in Sage the quotations around the arguments are important.</p>
+<p>Polynomials are constructed in this ring by using the <tt class="xref py py-meth docutils literal"><span class="pre">poly()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: p = singular.poly(&#39;x^2 * y^2 - 1&#39;)
+sage: q = singular.poly(&#39;x^2 * y^2 - z&#39;)
+sage: singular.ideal([p,q])
+x^2*y^2-1,
+x^2*y^2-z
+</pre></div>
+</div>
+<p>To construct the ideal (in R) generated by those polynomials and a Groebner basis it you enter the following.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: I = singular.ideal([p,q])
+sage: I.groebner()
+z-1,
+x^2*y^2-z
+</pre></div>
+</div>
+<p>Reduction modulo this ideal is accomplished using the <tt class="xref py py-meth docutils literal"><span class="pre">reduce()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: r = singular.poly(&#39;x^3 - x^2 * y^2 - x^2 * z  + x&#39;)
+sage: singular.reduce(p,I)
+z-1
+sage: singular.reduce(q,I)
+0
+sage: singular.reduce(r,I)
+x^3-x^2*z+x-z
+</pre></div>
+</div>
+<p>and if you would like this reduction done using a Groebner basis, we just combine the methods discussed previously.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: singular.reduce(q,I.groebner())
+0
+sage: singular.reduce(p,I.groebner())
+0
+sage: singular.reduce(r,I.groebner())
+x^3-x^2+x-1
+</pre></div>
+</div>
+<p>The quotations are not necessary when passing a Singular object as in the last few examples as there is no ambiguity.</p>
+<p>Finally a task that Singular excels at is the factorization of multivariate polynomials. This is done using the <tt class="xref py py-meth docutils literal"><span class="pre">factorize()</span></tt> method.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: p.factorize()
+[1]:
+   _[1]=1
+   _[2]=x*y-1
+   _[3]=x*y+1
+[2]:
+   1,1,1
+sage: q.factorize()
+[1]:
+   _[1]=1
+   _[2]=x^2*y^2-z
+[2]:
+   1,1
+sage: r.factorize()
+[1]:
+   _[1]=-1
+   _[2]=x
+   _[3]=-x^2+x*y^2+x*z-1
+[2]:
+   1,1,1
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://www.singular.uni-kl.de">http://www.singular.uni-kl.de</a></p>
+</div>
+</div>
+<div class="section" id="using-python-packages-in-sage">
+<h3>Using Python packages in Sage<a class="headerlink" href="#using-python-packages-in-sage" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="interactive-demonstrations-in-the-notebook">
+<h2>Interactive Demonstrations in the Notebook<a class="headerlink" href="#interactive-demonstrations-in-the-notebook" title="Permalink to this headline">¶</a></h2>
+<p id="index-61">In this section we will discuss the creation of interactive &#8220;applets&#8221; in the Sage notebook. These are done using the <tt class="xref py py-obj docutils literal"><span class="pre">&#64;interact</span></tt> decorator and are often called <em>interacts</em>.  A decorator is a just a fancy piece of python which allows for you to create new functions out of old in a quick and concise fashion. You don&#8217;t have to fully understand decorators to be able to follow this material but If you are interested you can read a very nice <a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">blog post</a> about decorators by Bruce Eckel of <a class="reference external" href="http://www.mindview.net/Books/TIPython">Thinking in Python</a> Fame.</p>
+<p>We will begin with the most simple applet. One that creates a single input box and then displays the results.</p>
+<a class="reference internal image-reference" href="_images/interact_step1.png"><img alt="Simple &quot;Hello World&quot; Interact Applet" src="_images/interact_step1.png" style="width: 800px; height: 525px;" /></a>
+<p>Notice how changing the text in the input box changes the output. Every time something within the interact changes the &#8220;applet&#8221; is refreshed and will display those changes. This is the heart of the interactivity.</p>
+<a class="reference internal image-reference" href="_images/interact_step2.png"><img alt="Simple &quot;Hello World&quot; Interact Applet" src="_images/interact_step2.png" style="width: 800px; height: 525px;" /></a>
+<p>Next we will add another control to the applet. This time we will add a <em>slider</em>. This control has a handle which the user can slide horizontally, and by sliding change a number in pre-defined increments. For this example, the slider has <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/> as it&#8217;s smallest number and <img class="math" src="_images/math/1984d1a61055b785e860b105bc14f1f2221f3476.png" alt="10"/> as it&#8217;s largest and moves in increments of <img class="math" src="_images/math/123e375e88da91240024aaf085abee194c4a2d06.png" alt="1"/> unit.</p>
+<a class="reference internal image-reference" href="_images/interact_step3.png"><img alt="Simple &quot;Hello World&quot; Interact Applet" src="_images/interact_step3.png" style="width: 800px; height: 525px;" /></a>
+<p>Next we will add a selection control. This control allows the user to select one of a finite number of different options. In this case, the user can select any color, as long as that color is red, blue, green, or black.</p>
+<a class="reference internal image-reference" href="_images/interact_step4.png"><img alt="Simple &quot;Hello World&quot; Interact Applet" src="_images/interact_step4.png" style="width: 800px; height: 525px;" /></a>
+<p>While this initial example shows the use of a couple of common interactive controls, it still does not do anything very interesting.  The next example will combine both the use of sliding and selection controls toward creating an applet which plots the trigonometric functions and there standard transformations.</p>
+<a class="reference internal image-reference" href="_images/interact_step5.png"><img alt="Example of Trigonometric Plotter Interact." src="_images/interact_step5.png" style="width: 800px; height: 525px;" /></a>
+<p>The example here only scratches the surface of what is possible with Sage interacts. For a, growing, list of examples of interacts see this page on the sage <a class="reference external" href="http://wiki.sagemath.org/interact/">wiki</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+
+	  <h3><a href="index.html">Topics</a></h3>
+	  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About this tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sagecalc.html">Sage as a Calculator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Programming in Sage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sage-objects">Sage Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#universes-and-coercion">Universes and Coercion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#booleans">Booleans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lists">Lists</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slicing-and-indexing">Slicing and Indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating">Creating</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-lists">Modifying lists</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#operations-on-a-list">Operations on a List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sets">Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-tools">Programming Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conditionals">Conditionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#while-loops">While loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-loops">For Loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-comprehensions-loops-in-lists">List Comprehensions (Loops in Lists)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-your-own-commands">Defining your own commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-files-and-sessions">External Files and Sessions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#packages-within-sage">Packages within Sage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gap">GAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#singular">Singular</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-python-packages-in-sage">Using Python packages in Sage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-demonstrations-in-the-notebook">Interactive Demonstrations in the Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mathstruct.html">Mathematical Structures</a></li>
+</ul>
+
+	  <h3>This Page</h3>
+	  <ul class="this-page-menu">
+	    <li><a href="_sources/sageprog.txt"
+	    rel="nofollow">Show Source</a></li>
+	  </ul>
+	<div id="searchbox" style="display: none">
+	  <h3>Quick search</h3>
+	  <form class="search" action="search.html" method="get">
+	  <input type="text" name="q" size="18" />
+	  <input type="submit" value="Go" />
+	  <input type="hidden" name="check_keywords" value="yes" />
+	  <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+	<script type="text/javascript">$('#searchbox').show(0);</script>
+       </div>
+    </div>
+
+      <div class="clearer"></div>
+    </div> 
+<div class="related"> &nbsp; </div>
+
+    <div class="footer">
+        &copy; Copyright 2011, Michael O&#39;Sullivan,  David Monarres.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
