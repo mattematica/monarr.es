@@ -1,14 +1,17 @@
 # Site settings
-title: Your awesome title
-email: your-email@domain.com
+title: david@monarr.es
+email: david@monarr.es
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Elevating self-depracating humor to uncomfortable levels since 1978. 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "http://monarr.es" # the base hostname & protocol for your site
+twitter_username: mattematica
+github_username:  mattematica
+facebook_username: dmonarres
+diquss_username: monarres
+google_analytics_username: 
+gravitar_hash: 2e7fa8883f667c8573e6c02606a4b1fe
+
 
 # Build settings
 markdown: kramdown
@@ -17,7 +20,7 @@ markdown: kramdown
 sass:
   # loading path from site root
   # default to _sass
-  sass_dir: bower_components/bootstrap-sass/assets/stylesheets
+  sass_dir: _sass 
 
   # style : nested (default), compact, compressed, expanded
   #         :nested, :compact, :compressed, :expanded also works
@@ -25,3 +28,11 @@ sass:
   # on a typical twitter bootstrap stats are :
   # nested 138,7kB, compact 129,1kB, expanded 135,9 kB, compressed 122,4 kB
   style: compressed
+
+collections:
+  courses:
+    output: true
+    permalink: /courses/:path/
+  notes:
+    output: true
+    permalink: /notes/:path/
