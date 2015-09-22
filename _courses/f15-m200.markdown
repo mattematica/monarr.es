@@ -1,7 +1,9 @@
 ---
-layout: post
-title: Fall 2015 - Math 200
-date: '2015-08-17 03:58:55'
+layout: page
+title: "Math 200: Elementary Probability and Statistics"
+semester: fall
+year: 2015
+school: canada
 ---
 
 ##Description

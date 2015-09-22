@@ -1,11 +1,9 @@
 ---
 layout: page
-title: Fall 2015 - Math 190
-date: '2015-08-17 03:58:21'
+title: "Math 190: Path to stats"
 semester: fall
 year: 2015
 school: canada
-permalink: "./f15-m190/"
 ---
 
 ##Description
