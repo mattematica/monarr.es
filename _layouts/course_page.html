@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<div class="main">
+<div class="container">
+	<h1>{{page.title}}</h1>
+	<h2>Course Description</h2>
+	<p>{{page.course_description}}</p>
+	
+	<h2>Syllabus</h2>
+	<ul>
+		<li><a  href="{{page.syllabus}}" target="_blank">Syllabus</a></li>
+	</ul>
+	<h2>Homework Links</h2>
+	<ul>
+	{%  for l in page.homework %}
+		<li><a href="{{l[1] }}" target="_blank">{{ l[0] }}</a></li>
+	{% endfor %}
+	</ul>
+	<h2>Shared Files </h2>
+	<ul>
+		<li><a href="{{page.dropbox_url}}" target="_blank"><i class="fa fa-dropbox"></i> Dropbox</a></li>
+	</ul>
+	{{content}} 
+</div>
+</div>

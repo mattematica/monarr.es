@@ -1,0 +1,18 @@
+---
+layout: course_page
+title: "Math 200: Elementary Probability and Statistics"
+semester: fall
+year: 2015
+school: canada
+course_description: "This course presents the basic concepts underlying statistical methods and covers descriptive statistics, probability, probability distributions, hypothesis testing, estimates and sample sizes, correlation and regression, chi-square tests, analysis of variance, and nonparametric statistics. Applications of statistics to business, life sciences and other areas are included."
+homework:
+  "My Math Lab": http://coursecompass.com
+  "Instructions": https://www.dropbox.com/s/179kuux3t8ephkv/Student%20Registration%20Handout%20for%20monarres42255.pdf?dl=0
+dropbox_url: https://www.dropbox.com/sh/tfctcflgoochxcj/AAA6o2uS1CspQ1W8pVrHnqKUa?dl=0
+syllabus: https://www.dropbox.com/s/rqmzcvuppgmqrrm/m200-f15-syllabus.pdf?dl=0
+status: active
+---
+
+## Learning Center Resources
+* [Frank's Packet](http://www.canadacollege.edu/learningcenter/docs/math200_outline_2014-2015.pdf) <- seriously download and print this out
+* [Frank's Workshop Schedule](http://www.canadacollege.edu/learningcenter/docs/StatsWorkshopsPosterFall15.pdf)
