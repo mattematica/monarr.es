@@ -1,6 +1,7 @@
 ---
 layout: course_page
-title: "Math 200: Elementary Probability and Statistics"
+title: "Math 200"
+subtitle: "Elementary Probability and Statistics"
 semester: fall
 year: 2015
 school: canada

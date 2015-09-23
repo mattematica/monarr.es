@@ -1,6 +1,7 @@
 ---
 layout: course_page
-title: "Math 190: Path to stats"
+title: "Math 190"
+subtitle: "Path to Stats"
 semester: fall
 year: 2015
 school: canada

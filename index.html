@@ -3,9 +3,8 @@ layout: default
 ---
 <div class="jumbotron">
   <div class="container">
-     <h1>Hello, world!</h1>
-     <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+     <h1>Hello, everybody!</h1>
+     <p>This is the personal webpage of bay area mathematics professor David Monarres. If you are a student, you can access your courses webpage by following the links below.</p>
     </div>
 </div>
 <div class="container">
@@ -14,14 +13,26 @@ layout: default
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Current Courses</h2>
+          <p>Here is a list of the current classes that I am teachig at <a href="http://canadacollege.edu" target="_blank">Cañada</a> and <a href="http://foothill.edu" target="_blank">Foothill</a> Colleges. Go here if you need to find a syllabus or other information about your class. </p>
+          <ul>
+              {% for course in site.courses %}
+                {% if course.status == 'active' %}
+                  <li><a href='{{ course.url | prepend: site.baseurl   }}'>{{ course.title}} </a></li>
+                {% endif %}
+              {% endfor  %}
+          </ul>
         </div>
         <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2><i class="fa fa-dropbox"></i>Need a file?</h2>
+          <p>You don't really care about me! You are probably just looking for a practice exam. Access your course's dropbox by following the link below. </p>
+          <ul>
+              {% for course in site.courses %}
+                {% if course.status == 'active' %}
+                  <li><a href='{{ course.dropbox_url | prepend: site.baseurl }}'>{{ course.title}} </a></li>
+                {% endif %}
+              {% endfor  %}
+          </ul>
        </div>
         <div class="col-md-4">
           <h2>Recent Posts</h2>
