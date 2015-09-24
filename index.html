@@ -1,49 +1,54 @@
 ---
 layout: default
 ---
-<div class="jumbotron">
-  <div class="container">
-     <h1>Hello, everybody!</h1>
-     <p>This is the personal webpage of bay area mathematics professor David Monarres. If you are a student, you can access your courses webpage by following the links below.</p>
+<div class="page-title">
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Hello, everybody!</h1>
+      <p>This is the personal webpage of bay area mathematics professor David Monarres. If you are a student, you can access your courses webpage by following the links below.</p>
     </div>
+  </div>
 </div>
-<div class="container">
-</div>
+
+<div class="page-content">
   <div class="container">
       <!-- Example row of columns -->
       <div class="row">
+
         <div class="col-md-4">
           <h2>Current Courses</h2>
           <p>Here is a list of the current classes that I am teachig at <a href="http://canadacollege.edu" target="_blank">Cañada</a> and <a href="http://foothill.edu" target="_blank">Foothill</a> Colleges. Go here if you need to find a syllabus or other information about your class. </p>
           <ul>
-              {% for course in site.courses %}
-                {% if course.status == 'active' %}
-                  <li><a href='{{ course.url | prepend: site.baseurl   }}'>{{ course.title}} </a></li>
-                {% endif %}
-              {% endfor  %}
+            {% for course in site.courses %}
+              {% if course.status == 'active' %}
+                <li><a href='{{ course.url | prepend: site.baseurl   }}'>{{ course.title}} </a></li>
+              {% endif %}
+            {% endfor  %}
           </ul>
         </div>
+
         <div class="col-md-4">
-          <h2><i class="fa fa-dropbox"></i>Need a file?</h2>
-          <p>You don't really care about me! You are probably just looking for a practice exam. Access your course's dropbox by following the link below. </p>
-          <ul>
-              {% for course in site.courses %}
-                {% if course.status == 'active' %}
-                  <li><a href='{{ course.dropbox_url | prepend: site.baseurl }}'>{{ course.title}} </a></li>
-                {% endif %}
-              {% endfor  %}
-          </ul>
-       </div>
-        <div class="col-md-4">
-          <h2>Recent Posts</h2>
-          <ul class="post-list">
-            {% for post in site.posts limit: 3 %}
-           <li>{{ post.date | date: "%b %-d, %Y" }} : <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-          </li>
-        {% endfor %}
-              <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-          </ul>
-        </div>
+        <h2><i class="fa fa-dropbox"></i>Need a file?</h2>
+        <p>You don't really care about me! You are probably just looking for a practice exam. Access your course's dropbox by following the link below. </p>
+        <ul>
+          {% for course in site.courses %}
+          {% if course.status == 'active' %}
+            <li><a href='{{ course.dropbox_url | prepend: site.baseurl }}'>{{ course.title}} </a></li>
+          {% endif %}
+          {% endfor  %}
+        </ul>
       </div>
 
-
+      <div class="col-md-4">
+        <h2>Recent Posts</h2>
+        <ul class="post-list">
+          {% for post in site.posts limit: 3 %}
+            <li>{{ post.date | date: "%b %-d, %Y" }} : <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+          {% endfor %}
+        </ul>
+        <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+      </div>
+    
+    </div>
+  </div>
+</div>
