@@ -1,0 +1,20 @@
+---
+layout: course_page
+title: "Math 48A"
+subtitle: "Precalculus I"
+semester: fall
+year: 2015
+school: foothill
+course_description: "Introduction to functions and families of functions including quadratics, polynomials, power and root functions, transformations of these functions, and their use in solving applications problems."
+homework:
+  "Web-Assign": https://webassign.net
+dropbox_url: https://www.dropbox.com/sh/u20v8jhdjbhen3o/AAALwB7i1p_qAdHxKb_BW29Za?dl=0
+syllabus: https://www.dropbox.com/s/wsj5fb4g9hjwhu8/m48a-f15-syllabus.pdf?dl=0
+status: active
+---
+
+##Important Links
+
+* [PSME Center Information](http://www.foothill.edu/psme/)
+* [Desmos Online Calculator](https://www.desmos.com/)
+* [Geogebra Geometry CAS](https://www.geogebra.org/)

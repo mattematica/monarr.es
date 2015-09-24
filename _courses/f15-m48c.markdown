@@ -1,0 +1,20 @@
+---
+layout: course_page
+title: "Math 48C"
+subtitle: "Precalculus III"
+semester: fall
+year: 2015
+school: foothill
+course_description: "This course is a continuation of topics from MATH 48B. Topics include the six trigonometric functions, trigonometric identities, inverse trigonometric functions, trigonometric equations, right triangles, oblique triangles, vectors, parametric equations, and modeling data with various functions."
+homework:
+  "Web-Assign": https://webassign.net
+dropbox_url: https://www.dropbox.com/sh/xmjbdbuiuxos2ui/AADS1ca8jG1txGBh87fNK0SJa?dl=0
+syllabus: https://www.dropbox.com/s/et14ssy0vqzyitu/m48c-f15-syllabus.pdf?dl=0
+status: active
+---
+
+##Important Links
+
+* [PSME Center Information](http://www.foothill.edu/psme/)
+* [Desmos Online Calculator](https://www.desmos.com/)
+* [Geogebra Geometry CAS](https://www.geogebra.org/)
