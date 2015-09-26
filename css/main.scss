@@ -3,7 +3,7 @@
 ---
 @charset "utf-8";
 
-$link-color: #063440;
+$link-color: darken(#E5936B,20%);
 
 
 body{
@@ -42,11 +42,5 @@ a {
 	color: $link-color;
 }
 a:hover {
-	color: lighten($link-color,15%);	
-}
-a:visited {
-	color: $link-color;
-}
-a:active {
-	color: $link-color;	
+	color: lighten($link-color,20%);	
 }
