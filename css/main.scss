@@ -3,6 +3,9 @@
 ---
 @charset "utf-8";
 
+$link-color: #063440;
+
+
 body{
 	font-weight: 400;
 	font-size: 14px;
@@ -23,6 +26,27 @@ ul.social-media-list {
 	padding-top: 5px;
 }
 
-.post-title .jumbotron {
+.jumbotron {
 	padding-top: 0px;
+	background: url(/images/chevron.jpg);
+	background-repeat: repeat-x; 
+	background-position: left center;
+	font-weight: 800;
+	color: #fff;
+}
+.jumbotron h1 {
+	color: #fff;
+}
+
+a {
+	color: $link-color;
+}
+a:hover {
+	color: lighten($link-color,15%);	
+}
+a:visited {
+	color: $link-color;
+}
+a:active {
+	color: $link-color;	
 }
