@@ -1,0 +1,14 @@
+---
+layout: course_page
+title: "{{ title }}"
+subtitle: 
+semester: 
+year: 
+school: 
+course_description:
+homework:
+  "Site": https://
+dropbox_url: 
+syllabus:
+status: 
+---
