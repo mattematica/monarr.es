@@ -12,6 +12,8 @@ diquss_username: monarres
 google_analytics_username: 
 gravitar_hash: 2e7fa8883f667c8573e6c02606a4b1fe
 
+gems:
+  - octopress-social
 
 # Build settings
 markdown: kramdown

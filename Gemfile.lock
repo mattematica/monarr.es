@@ -59,6 +59,8 @@ GEM
       octopress-hooks (~> 2.0)
     octopress-hooks (2.6.1)
       jekyll (>= 2.0)
+    octopress-social (1.4.5)
+      jekyll (>= 2.0)
     parslet (1.5.0)
       blankslate (~> 2.0)
     posix-spawn (0.3.11)
@@ -85,6 +87,7 @@ DEPENDENCIES
   execjs (~> 2.6.0)
   jekyll (~> 2.5.3)
   octopress (~> 3.0)
+  octopress-social
 
 BUNDLED WITH
    1.10.6
