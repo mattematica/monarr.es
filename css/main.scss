@@ -23,24 +23,39 @@ ul.social-media-list {
 
 .course-title, .post-title, .page-title {
 	margin-top: 64px;
-	padding-top: 5px;
+	padding: 10px;
+	background: url(/images/chevron.jpg);
+	background-position: left center;
+	background-repeat: repeat-x;
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+
+.course-title h2, .page-title h2, .post-title h2 {
+	color: #fff;
+	margin-bottom: 23px;
 }
 
 .jumbotron {
-	padding-top: 0px;
 	background: url(/images/chevron.jpg);
 	background-repeat: repeat-x; 
 	background-position: left center;
 	font-weight: 900;
-	color: #fff;
+	text-align: center;
+	vertical-align: middle;
 }
-.jumbotron h1 {
+
+.jumbotron h1,.jumbotron p {
 	color: #fff;
 }
 
 a {
 	color: $link-color;
 }
+
+
 a:hover {
 	color: lighten($link-color,20%);	
 }
