@@ -9,9 +9,8 @@ title: "Blog"
 	<div class="blog-list">
 		<ul>
 		{% for post in site.posts  %}
-			<li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>: {{ post.date }}</li>
-			{{ post.excerpt  }}</p>
+			<li>{{ post.date | date: '%B %d, %Y'}} : <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
 		{% endfor %}
-</ul>
+		</ul>
 </div>
 </div>
