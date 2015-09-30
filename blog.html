@@ -1,0 +1,17 @@
+---
+layout: page
+title: "Blog"
+---
+
+<div class="blog-content">
+<p> Here are some of my recent mumblings </p>
+	<h2>Posts</h2>
+	<div class="blog-list">
+		<ul>
+		{% for post in site.posts  %}
+			<li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>: {{ post.date }}</li>
+			{{ post.excerpt  }}</p>
+		{% endfor %}
+</ul>
+</div>
+</div>
