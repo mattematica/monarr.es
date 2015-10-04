@@ -4,7 +4,7 @@
 @charset "utf-8";
 
 $link-color: darken(#E5936B,20%);
-
+$background_image: "/images/chalk.jpg";
 
 body{
 	font-weight: 400;
@@ -30,7 +30,7 @@ ul.social-media-list {
 
 
 .course-title h2, .page-title h2, .post-title h2 {
-	background: url(/images/chevron.jpg);
+	background: url($background_image);
 	background-position: left center;
 	background-repeat: repeat-x;
 	color: #fff;
@@ -40,7 +40,7 @@ ul.social-media-list {
 }
 
 .jumbotron {
-	background-image: url(/images/chevron.jpg);
+	background-image: url($background_image);
 	background-repeat: repeat-x; 
 	background-position: left center;
 	font-weight: 900;
