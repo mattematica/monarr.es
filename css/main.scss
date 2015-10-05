@@ -32,22 +32,22 @@ ul.social-media-list {
 
 .course-title h2, .page-title h2, .post-title h2 {
 	background: url($background_image);
-	background-position: left center;
-	background-repeat: repeat-x;
+	background-position: left top;
+	background-repeat: repeat;
 	color: #fff;
 	margin-bottom: 23px;
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .jumbotron {
 	background-image: url($background_image);
-	background-repeat: repeat-x; 
+	background-repeat: repeat; 
 	background-position: left center;
 	font-weight: 900;
 	text-align: center;
 	vertical-align: middle;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .jumbotron h1,.jumbotron p {
