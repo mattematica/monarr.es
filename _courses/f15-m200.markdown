@@ -11,7 +11,7 @@ homework:
   "Instructions": https://www.dropbox.com/s/179kuux3t8ephkv/Student%20Registration%20Handout%20for%20monarres42255.pdf?dl=0
 dropbox_url: https://www.dropbox.com/sh/tfctcflgoochxcj/AAA6o2uS1CspQ1W8pVrHnqKUa?dl=0
 syllabus: https://www.dropbox.com/s/rqmzcvuppgmqrrm/m200-f15-syllabus.pdf?dl=0
-status: active
+status: inactive
 ---
 
 ## Learning Center Resources

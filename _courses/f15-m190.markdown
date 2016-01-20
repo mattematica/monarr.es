@@ -10,6 +10,6 @@ homework:
   "Web-Access": https://smccd.mrooms.net
 dropbox_url: https://www.dropbox.com/sh/fumyvoacsen6pio/AABrX7-ae4vUxxJgMVgqt045a?dl=0
 syllabus: https://www.dropbox.com/s/ywuma3eryu9jtpn/m190-f15-syllabus.pdf?dl=0
-status: active
+status: inactive
 ---
 

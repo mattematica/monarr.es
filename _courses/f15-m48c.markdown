@@ -10,7 +10,7 @@ homework:
   "Web-Assign": https://webassign.net
 dropbox_url: https://www.dropbox.com/sh/xmjbdbuiuxos2ui/AADS1ca8jG1txGBh87fNK0SJa?dl=0
 syllabus: https://www.dropbox.com/s/et14ssy0vqzyitu/m48c-f15-syllabus.pdf?dl=0
-status: active
+status: inactive
 ---
 
 ##Important Links
