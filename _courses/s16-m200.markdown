@@ -13,9 +13,6 @@ dropbox_url: https://www.dropbox.com/sh/hiha75zdd59i738/AAB72LuP-3maoRiyf4vGlGT-
 syllabus: https://www.dropbox.com/s/rpxjed7e06ep2kd/m200-s16-syllabus.pdf?dl=0
 status: active
 ---
-### Workbook
-* [Spring 2016 Workbook](https://www.dropbox.com/s/zoh7hgv0v2rvz9r/m190-s16-packet.pdf?dl=0)
-
 ### Learning Center Resources
 * [Learning Center](http://canadacollege.edu/learningcenter/) - Need Tutoring?
 * [Statistics Videos](http://canadacollege.edu/learningcenter/statistics.php) - Statistics Videos. 

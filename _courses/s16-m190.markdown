@@ -1,0 +1,27 @@
+---
+layout: course_page
+title: "Math 190"
+subtitle: "Path to Stats"
+semester: spring
+year: 2016
+school: canada
+course_description: "This accelerated course prepares students for transfer-level Statistics. It covers core concepts from elementary algebra, intermediate algebra, and descriptive statistics. Topics include ratios, rates, and proportional reasoning; arithmetic reasoning using fractions, decimals and percents; evaluating expressions, solving equations, analyzing algebraic forms to understand statistical measures; use of linear, quadratic, absolute value, exponential, and logarithmic functions to model bivariate data; graphical and numerical descriptive statistics for quantitative and categorical data. This course is designed for students who do not want to major in fields such as math, science, computer science, and business. Note: This course is NOT intended for students who plan to study science, technology, engineering, math, as well as business and other non-STEM majors."
+homework:
+  "Open Learning Initiative": https://oli.cmu.edu
+  "Course Key": monarres-s16
+dropbox_url: https://www.dropbox.com/sh/ryw5vxw3uqog870/AAC_ubFzpwSmPCSJIiSAJG1Oa?dl=0
+syllabus: https://www.dropbox.com/s/a000xtx8o8kff7f/m190-s16-syllabus.pdf?dl=0
+status: active
+---
+### Workbook
+* [Spring 2016 Workbook](https://www.dropbox.com/s/zoh7hgv0v2rvz9r/m190-s16-packet.pdf?dl=0)
+
+### Learning Center Resources
+* [Learning Center](http://canadacollege.edu/learningcenter/) - Need Tutoring?
+* [Statistics Videos](http://canadacollege.edu/learningcenter/statistics.php) - Statistics Videos. 
+* [STATS PACKET](http://www.canadacollege.edu/learningcenter/docs/math200_outline_2014-2015.pdf) <- seriously download and print this out
+
+### Important Links
+* [Canada Cares](http://www.canadacollege.com/cares/) - A place for psychological and emotional assistance.
+* [SparkPoint](http://canadacollege.edu/sparkpoint/) - Finnancial Assistance
+
